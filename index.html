@@ -435,6 +435,7 @@
         const TMDB_API_KEY = '93f0d2ee2e3e60d061d14d91cbb47b46';
         const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
+        // ✅ הקישור עודכן ל-stremio:// במקום http://
         const ADDONS = [
             {
                 name: 'Torrentio+ed',
@@ -463,7 +464,7 @@
             },
             {
                 name: 'ערוצים תוכן ישראלי ומדובב',
-                url: 'http://xtremiob.vercel.app:/eyJCYXNlVVJMIjoiaHR0cHM6Ly94dHJlYW0taWUuY2MiLCJ1c2VybmFtZSI6InN0cmVtaW9lZGlsMjUiLCJwYXNzd29yZCI6IlNzMjAyNSIsIm5hbWUiOiJJbCIsImxhbmciOiJlbi1VUyIsImVuY3J5cHRlZCI6ZmFsc2V9/manifest.json',
+                url: 'stremio://xtremiob.vercel.app:/eyJCYXNlVVJMIjoiaHR0cHM6Ly94dHJlYW0taWUuY2MiLCJ1c2VybmFtZSI6InN0cmVtaW9lZGlsMjUiLCJwYXNzd29yZCI6IlNzMjAyNSIsIm5hbWUiOiJJbCIsImxhbmciOiJlbi1VUyIsImVuY3J5cHRlZCI6ZmFsc2V9/manifest.json',
                 description: '📺 ערוצי טלוויזיה ישראליים לצפייה חיה, סדרות ישראליות, תוכן מדובב ו-VOD'
             }
         ];
@@ -594,11 +595,9 @@
             }
         }
 
-        // ✅ תיקון פונקציית renderSearchResults
         function renderSearchResults(results) {
             const resultsDiv = document.getElementById('searchResults');
             
-            // סינון אנשים (actors) מתוצאות החיפוש
             const filteredResults = results.filter(item => 
                 item.media_type === 'movie' || item.media_type === 'tv'
             );
@@ -611,7 +610,6 @@
                     ? `https://image.tmdb.org/t/p/w200${item.poster_path}`
                     : 'https://placehold.co/50x75/1f2937/9ca3af?text=?';
 
-                // ✅ שימוש ב-'tv' במקום 'series'
                 const type = isMovie ? 'movie' : 'tv';
 
                 return `
@@ -630,7 +628,6 @@
             }).join('');
         }
 
-        // ✅ תיקון פונקציית renderContent
         function renderContent(items, gridId, type) {
             const grid = document.getElementById(gridId);
             grid.innerHTML = items.map(item => {
@@ -641,7 +638,6 @@
                     ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
                     : 'https://placehold.co/500x750/1f2937/9ca3af?text=No+Image';
 
-                // ✅ שימוש ב-'tv' במקום 'series'
                 const contentType = isMovie ? 'movie' : 'tv';
 
                 return `
@@ -690,7 +686,6 @@
             `).join('');
         }
 
-        // ✅ תיקון פונקציית openStremio - תמיכה מלאה ב-'tv'
         async function openStremio(tmdbId, type) {
             try {
                 const loadingMsg = document.createElement('div');
@@ -710,7 +705,6 @@
                 loadingMsg.textContent = '⏳ טוען...';
                 document.body.appendChild(loadingMsg);
 
-                // ✅ שימוש ב-type כפי שהוא ('movie' או 'tv') עבור TMDB API
                 const response = await fetch(
                     `${TMDB_BASE_URL}/${type}/${tmdbId}/external_ids?api_key=${TMDB_API_KEY}`
                 );
@@ -729,7 +723,6 @@
                     return;
                 }
 
-                // ✅ המרה ל-'series' רק עבור Stremio (Stremio משתמש ב-'series' ולא ב-'tv')
                 const stremioType = type === 'tv' ? 'series' : 'movie';
                 const stremioUrl = `stremio://detail/${stremioType}/${imdbId}`;
                 
@@ -754,7 +747,6 @@
             } catch (error) {
                 console.error('Error opening Stremio:', error);
                 
-                // הסרת הודעת טעינה במקרה של שגיאה
                 const loadingMsg = document.querySelector('[style*="position: fixed"]');
                 if (loadingMsg && loadingMsg.textContent === '⏳ טוען...') {
                     loadingMsg.remove();
