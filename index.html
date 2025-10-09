@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreamHub - מרכז סטרימינג</title>
     <style>
-        /* כל ה-CSS נשאר זהה כמו קודם */
         * {
             margin: 0;
             padding: 0;
@@ -436,7 +435,6 @@
         const TMDB_API_KEY = '93f0d2ee2e3e60d061d14d91cbb47b46';
         const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
-        // ✅ מערך תוספים מעודכן עם התוסף החדש
         const ADDONS = [
             {
                 name: 'Torrentio+ed',
@@ -464,7 +462,7 @@
                 description: 'פוסטרים עבריים וחיפוש תוכן'
             },
             {
-                name: 'ערוצים תוכן ישראלי ומדובב', // ✅ התוסף החדש שהוספת
+                name: 'ערוצים תוכן ישראלי ומדובב',
                 url: 'http://xtremiob.vercel.app:/eyJCYXNlVVJMIjoiaHR0cHM6Ly94dHJlYW0taWUuY2MiLCJ1c2VybmFtZSI6InN0cmVtaW9lZGlsMjUiLCJwYXNzd29yZCI6IlNzMjAyNSIsIm5hbWUiOiJJbCIsImxhbmciOiJlbi1VUyIsImVuY3J5cHRlZCI6ZmFsc2V9/manifest.json',
                 description: '📺 ערוצי טלוויזיה ישראליים לצפייה חיה, סדרות ישראליות, תוכן מדובב ו-VOD'
             }
@@ -596,9 +594,16 @@
             }
         }
 
+        // ✅ תיקון פונקציית renderSearchResults
         function renderSearchResults(results) {
             const resultsDiv = document.getElementById('searchResults');
-            resultsDiv.innerHTML = results.map(item => {
+            
+            // סינון אנשים (actors) מתוצאות החיפוש
+            const filteredResults = results.filter(item => 
+                item.media_type === 'movie' || item.media_type === 'tv'
+            );
+            
+            resultsDiv.innerHTML = filteredResults.map(item => {
                 const isMovie = item.media_type === 'movie';
                 const title = isMovie ? item.title : item.name;
                 const year = isMovie ? item.release_date : item.first_air_date;
@@ -606,8 +611,11 @@
                     ? `https://image.tmdb.org/t/p/w200${item.poster_path}`
                     : 'https://placehold.co/50x75/1f2937/9ca3af?text=?';
 
+                // ✅ שימוש ב-'tv' במקום 'series'
+                const type = isMovie ? 'movie' : 'tv';
+
                 return `
-                    <div class="search-result-item" onclick="openStremio('${item.id}', '${isMovie ? 'movie' : 'series'}')">
+                    <div class="search-result-item" onclick="openStremio('${item.id}', '${type}')">
                         <img src="${posterPath}" alt="${title}" class="search-result-image">
                         <div class="search-result-info">
                             <div class="search-result-title">${title}</div>
@@ -622,6 +630,7 @@
             }).join('');
         }
 
+        // ✅ תיקון פונקציית renderContent
         function renderContent(items, gridId, type) {
             const grid = document.getElementById(gridId);
             grid.innerHTML = items.map(item => {
@@ -632,12 +641,15 @@
                     ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
                     : 'https://placehold.co/500x750/1f2937/9ca3af?text=No+Image';
 
+                // ✅ שימוש ב-'tv' במקום 'series'
+                const contentType = isMovie ? 'movie' : 'tv';
+
                 return `
                     <div class="content-card">
                         <div class="card-image-container">
                             <img src="${posterPath}" alt="${title}" class="card-image" loading="lazy">
                             <div class="card-overlay">
-                                <button class="watch-btn" onclick="openStremio('${item.id}', '${isMovie ? 'movie' : 'series'}')">
+                                <button class="watch-btn" onclick="openStremio('${item.id}', '${contentType}')">
                                     ▶ צפה ב-Stremio
                                 </button>
                             </div>
@@ -678,6 +690,7 @@
             `).join('');
         }
 
+        // ✅ תיקון פונקציית openStremio - תמיכה מלאה ב-'tv'
         async function openStremio(tmdbId, type) {
             try {
                 const loadingMsg = document.createElement('div');
@@ -697,11 +710,14 @@
                 loadingMsg.textContent = '⏳ טוען...';
                 document.body.appendChild(loadingMsg);
 
+                // ✅ שימוש ב-type כפי שהוא ('movie' או 'tv') עבור TMDB API
                 const response = await fetch(
                     `${TMDB_BASE_URL}/${type}/${tmdbId}/external_ids?api_key=${TMDB_API_KEY}`
                 );
                 
-                if (!response.ok) throw new Error('Failed to fetch IMDB ID');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch IMDB ID');
+                }
                 
                 const data = await response.json();
                 const imdbId = data.imdb_id;
@@ -713,7 +729,10 @@
                     return;
                 }
 
-                const stremioUrl = `stremio://detail/${type}/${imdbId}`;
+                // ✅ המרה ל-'series' רק עבור Stremio (Stremio משתמש ב-'series' ולא ב-'tv')
+                const stremioType = type === 'tv' ? 'series' : 'movie';
+                const stremioUrl = `stremio://detail/${stremioType}/${imdbId}`;
+                
                 console.log('Opening Stremio:', stremioUrl);
                 window.location.href = stremioUrl;
                 
@@ -734,9 +753,14 @@
 
             } catch (error) {
                 console.error('Error opening Stremio:', error);
-                alert('❌ אירעה שגיאה בטעינת הסרט. אנא נסה שוב.');
+                
+                // הסרת הודעת טעינה במקרה של שגיאה
                 const loadingMsg = document.querySelector('[style*="position: fixed"]');
-                if (loadingMsg) loadingMsg.remove();
+                if (loadingMsg && loadingMsg.textContent === '⏳ טוען...') {
+                    loadingMsg.remove();
+                }
+                
+                alert('❌ אירעה שגיאה בטעינת התוכן. אנא נסה שוב.');
             }
         }
 
