@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -510,8 +511,8 @@
                 description: 'פוסטרים עבריים וחיפוש תוכן'
             },
             {
-                name: 'ערוצים תוכן ישראלי ומדובב',
-                url: 'stremio://xtremiob.vercel.app:/eyJCYXNlVVJMIjoiaHR0cHM6Ly94dHJlYW0taWUuY2MiLCJ1c2VybmFtZSI6InN0cmVtaW9lZGlsMjUiLCJwYXNzd29yZCI6IlNzMjAyNSIsIm5hbWUiOiJJbCIsImxhbmciOiJlbi1VUyIsImVuY3J5cHRlZCI6ZmFsc2V9/manifest.json',
+                name: 'ערוצים חיים ותוכן ישראלי',
+                url: 'stremio://xtremiob.vercel.app:/eyJCYXNlVVJMIjoiaHR0cHM6Ly94dHJlYW0taWUuY2MiLCJ1c2VybmFtZSI6InN0cmVtaW9lZGlsMjUiLCJwYXNzd29yZCI6IlNzMjAyNSIsIm5hbWUiOiJJTCIsImxhbmciOiJoZS1JTCIsImVuY3J5cHRlZCI6ZmFsc2V9/manifest.json',
                 description: '📺 ערוצי טלוויזיה ישראליים לצפייה חיה, סדרות ישראליות, תוכן מדובב ו-VOD'
             }
         ];
@@ -720,7 +721,6 @@
             `).join('');
         }
 
-        // ✅ פונקציה מעודכנת עם אופציית העתקה
         function renderAddons() {
             const grid = document.getElementById('addonsGrid');
             grid.innerHTML = ADDONS.map(addon => `
@@ -781,10 +781,8 @@
                 
                 console.log('Opening Stremio:', stremioUrl);
                 
-                // ניסיון לפתוח את Stremio
                 window.location.href = stremioUrl;
                 
-                // הודעת חלופה אם Stremio לא נפתח
                 setTimeout(() => {
                     if (!document.hidden) {
                         showToast('💡 אם Stremio לא נפתח, פתח אותו ידנית ונסה שוב');
@@ -806,12 +804,9 @@
             }
         }
 
-        // ✅ פונקציה חדשה להתקנת תוסף
         function installAddon(url) {
-            // ניסיון לפתוח בStremio
             window.location.href = url;
             
-            // הודעה אם לא עובד
             setTimeout(() => {
                 if (!document.hidden) {
                     showToast('💡 פתח את Stremio קודם ונסה שוב, או לחץ על "העתק קישור"');
@@ -819,13 +814,11 @@
             }, 1000);
         }
 
-        // ✅ פונקציה חדשה להעתקת קישור
         async function copyAddonLink(url) {
             try {
                 await navigator.clipboard.writeText(url);
                 showToast('✅ הקישור הועתק! הדבק אותו בתוך Stremio');
             } catch (err) {
-                // Fallback for older browsers
                 const textArea = document.createElement('textarea');
                 textArea.value = url;
                 textArea.style.position = 'fixed';
@@ -842,7 +835,6 @@
             }
         }
 
-        // ✅ פונקציה להצגת הודעות Toast
         function showToast(message) {
             const toast = document.createElement('div');
             toast.className = 'toast';
@@ -857,3 +849,4 @@
     </script>
 </body>
 </html>
+```
