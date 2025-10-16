@@ -1110,24 +1110,47 @@
 
         /* Landscape mobile orientation */
         @media (max-width: 768px) and (orientation: landscape) {
+            .modal-overlay {
+                padding: 0.25rem;
+                padding-top: 1rem;
+            }
+            
             .modal-content {
-                max-height: 90vh;
+                max-height: calc(100vh - 2rem);
+                max-height: calc(100dvh - 2rem);
+                padding: 1rem;
             }
 
             .modal-body {
                 flex-direction: row;
                 align-items: flex-start;
+                gap: 1rem;
             }
 
             .modal-poster {
-                width: 150px;
-                max-width: 150px;
-                margin: 0 1rem 0 0;
+                width: 120px;
+                max-width: 120px;
+                margin: 0;
+                flex-shrink: 0;
             }
 
             .modal-info {
                 text-align: right;
                 flex: 1;
+            }
+            
+            .modal-info h2 {
+                font-size: 1.2rem;
+            }
+            
+            .modal-description {
+                font-size: 0.8rem;
+                max-height: 100px;
+                overflow-y: auto;
+            }
+            
+            .modal-cast {
+                display: none;
             }
         }
 
@@ -1213,7 +1236,9 @@
             top: 0;
             left: 0;
             width: 100vw;
+            width: 100dvw;
             height: 100vh;
+            height: 100dvh;
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
             z-index: 10000;
@@ -1223,6 +1248,8 @@
             padding: 0;
             opacity: 0;
             transition: opacity 0.3s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .modal-overlay.show {
@@ -1238,6 +1265,7 @@
             max-width: 900px;
             width: 90%;
             max-height: 85vh;
+            max-height: 85dvh;
             overflow-y: auto;
             border: 1px solid rgba(99, 102, 241, 0.3);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
@@ -1247,6 +1275,7 @@
             transition: transform 0.3s ease;
             position: relative;
             margin: 0 auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .modal-overlay.show .modal-content {
@@ -1384,6 +1413,12 @@
 
         /* Responsive Modal */
         @media (max-width: 768px) {
+            .modal-overlay {
+                padding: 0.5rem;
+                align-items: flex-start;
+                padding-top: 2rem;
+            }
+            
             .modal-body {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -1391,10 +1426,18 @@
             
             .modal-content {
                 padding: 1.5rem;
-                margin: 0.5rem;
-                width: calc(100% - 1rem);
-                max-height: 95vh;
+                margin: 0;
+                width: 100%;
+                max-width: 100%;
+                max-height: calc(100vh - 4rem);
+                max-height: calc(100dvh - 4rem);
                 border-radius: 1rem;
+                transform: none;
+                position: relative;
+            }
+            
+            .modal-overlay.show .modal-content {
+                transform: none;
             }
             
             .modal-info h2 {
@@ -1418,6 +1461,17 @@
 
             .modal-cast-item {
                 font-size: 0.7rem;
+            }
+            
+            .modal-header {
+                position: sticky;
+                top: 0;
+                background: rgba(30, 41, 59, 0.95);
+                backdrop-filter: blur(20px);
+                z-index: 1;
+                margin: -1.5rem -1.5rem 1rem -1.5rem;
+                padding: 1rem 1.5rem;
+                border-radius: 1rem 1rem 0 0;
             }
         }
 
@@ -2105,7 +2159,18 @@
         function openModal(movieId, type = 'movie') {
             const modal = document.getElementById('movieModal');
             modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
+            
+            // Prevent body scroll on mobile
+            if (isMobile()) {
+                document.body.style.position = 'fixed';
+                document.body.style.top = '0';
+                document.body.style.left = '0';
+                document.body.style.right = '0';
+                document.body.style.bottom = '0';
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'hidden';
+            }
             
             // Show loading state
             document.getElementById('modalTitle').textContent = 'טוען...';
@@ -2119,7 +2184,18 @@
         function closeModal() {
             const modal = document.getElementById('movieModal');
             modal.classList.remove('show');
-            document.body.style.overflow = '';
+            
+            // Restore body scroll on mobile
+            if (isMobile()) {
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.left = '';
+                document.body.style.right = '';
+                document.body.style.bottom = '';
+                document.body.style.overflow = '';
+            } else {
+                document.body.style.overflow = '';
+            }
         }
 
         async function fetchMovieDetails(movieId, type) {
