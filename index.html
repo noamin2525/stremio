@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamHub - מרכז סטרימינג</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>סינימה סטרים - מרכז סטרימינג Premium v5.0</title>
     <style>
         * {
             margin: 0;
@@ -11,11 +14,117 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: white;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 25%, #16213e 50%, #0f172a 75%, #0c0c0f 100%);
+            color: #f1f5f9;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 400;
+            line-height: 1.6;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animated gradient blobs background */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+            transition: opacity 0.5s ease;
+        }
+
+        body::before {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            top: -200px;
+            right: -200px;
+            animation: float 25s infinite ease-in-out;
+        }
+
+        body::after {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            bottom: -150px;
+            left: -150px;
+            animation: float 30s infinite ease-in-out reverse;
+        }
+
+
+        /* Floating particles animation */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float-particle 20s infinite linear;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 12s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 14s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 16s; }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.9); }
+            75% { transform: translate(30px, 50px) scale(1.05); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
         }
 
         .container {
@@ -28,9 +137,13 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(24px) saturate(200%);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 
+                        0 1px 3px rgba(99, 102, 241, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .header-content {
@@ -48,21 +161,23 @@
         }
 
         .logo-icon {
-            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
-            padding: 0.5rem;
-            border-radius: 0.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 0.75rem;
+            border-radius: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
         }
 
         .logo-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #c084fc 0%, #93c5fd 100%);
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: -0.025em;
         }
 
         .search-container {
@@ -73,18 +188,39 @@
 
         .search-input {
             width: 100%;
-            background: rgba(31, 41, 55, 0.5);
-            border: 1px solid #374151;
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(30, 41, 59, 0.6));
+            border: 2px solid transparent;
             border-radius: 9999px;
             padding: 0.75rem 3rem;
-            color: white;
+            color: #f3f4f6;
             outline: none;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899, #3b82f6);
+            border-radius: inherit;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .search-input:focus {
-            border-color: #a855f7;
-            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3);
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4),
+                        0 0 60px rgba(236, 72, 153, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .search-input:focus::before {
+            opacity: 1;
         }
 
         .search-icon {
@@ -101,22 +237,29 @@
         }
 
         .nav-btn {
-            background: rgba(168, 85, 247, 0.2);
-            border: none;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
+            background: rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: #cbd5e1;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            font-size: 0.875rem;
+            letter-spacing: 0.025em;
         }
 
         .nav-btn:hover {
-            background: rgba(168, 85, 247, 0.4);
-            transform: translateY(-2px);
+            background: rgba(148, 163, 184, 0.2);
+            transform: translateY(-1px);
+            border-color: rgba(148, 163, 184, 0.3);
         }
 
         .nav-btn.active {
-            background: #a855f7;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-color: rgba(99, 102, 241, 0.5);
+            color: white;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
         }
 
         .content-section {
@@ -124,12 +267,26 @@
         }
 
         .section-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
+            color: #f1f5f9;
+            letter-spacing: -0.05em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 32px;
+            border-radius: 9999px;
+            background: linear-gradient(180deg, #6366f1, #8b5cf6, #ec4899);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5), 
+                        0 2px 8px rgba(139, 92, 246, 0.3);
         }
 
         .content-grid {
@@ -138,24 +295,149 @@
             gap: 1.5rem;
         }
 
+        /* Fade-in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .content-card {
-            background: #1f2937;
-            border-radius: 1rem;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .content-card:nth-child(1) { animation-delay: 0.05s; }
+        .content-card:nth-child(2) { animation-delay: 0.1s; }
+        .content-card:nth-child(3) { animation-delay: 0.15s; }
+        .content-card:nth-child(4) { animation-delay: 0.2s; }
+        .content-card:nth-child(5) { animation-delay: 0.25s; }
+        .content-card:nth-child(6) { animation-delay: 0.3s; }
+        .content-card:nth-child(7) { animation-delay: 0.35s; }
+        .content-card:nth-child(8) { animation-delay: 0.4s; }
+        .content-card:nth-child(9) { animation-delay: 0.45s; }
+        .content-card:nth-child(10) { animation-delay: 0.5s; }
+
+        .content-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 1.5rem;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 
+                        0 4px 16px rgba(99, 102, 241, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .content-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 32px 64px -12px rgba(99, 102, 241, 0.3), 
+                        0 20px 40px -20px rgba(139, 92, 246, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .content-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Modern magnetic cursor effect for cards */
+        .content-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .content-card:hover {
+            transform: translateY(-16px) scale(1.05) rotateX(3deg) rotateY(3deg);
+            box-shadow: 0 48px 96px -24px rgba(99, 102, 241, 0.4), 
+                        0 32px 64px -32px rgba(139, 92, 246, 0.3),
+                        0 16px 32px rgba(236, 72, 153, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        /* Magnetic effect for mouse movement */
+        .content-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-card:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
         .card-image-container {
             position: relative;
             aspect-ratio: 2/3;
             overflow: hidden;
+            background: #0b0c0f;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .badge-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            background: rgba(17, 24, 39, 0.7);
+            color: #f3f4f6;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            backdrop-filter: blur(6px);
+        }
+
+        .badge-item .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 9999px;
+            background: #f59e0b; /* rating accent */
         }
 
         .card-image {
@@ -169,79 +451,188 @@
             transform: scale(1.1);
         }
 
-        .card-overlay {
+
+        /* Modern ripple effect for buttons */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::after {
+            content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-            display: flex;
-            align-items: flex-end;
-            padding: 1rem;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
-        .content-card:hover .card-overlay {
-            opacity: 1;
+        .ripple:active::after {
+            width: 200px;
+            height: 200px;
         }
 
-        .watch-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #a855f7;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            transition: background 0.3s;
+        /* Add ripple class to buttons */
+        .nav-btn, .addon-btn, .watch-btn {
+            position: relative;
+            overflow: hidden;
         }
 
         .watch-btn:hover {
-            background: #9333ea;
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 20px 48px rgba(99, 102, 241, 0.5), 
+                        0 8px 24px rgba(139, 92, 246, 0.4),
+                        0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+
+        .watch-btn:active {
+            transform: translateY(0) scale(0.98);
         }
 
         .card-info {
-            padding: 0.75rem;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.7));
         }
 
         .card-title {
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 0.9rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .card-meta {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: #9ca3af;
-            font-size: 0.875rem;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
         .skeleton {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            position: relative;
+            overflow: hidden;
         }
 
         .skeleton-card {
-            background: #374151;
+            background: #151720;
             border-radius: 1rem;
             overflow: hidden;
         }
 
         .skeleton-image {
             aspect-ratio: 2/3;
-            background: #4b5563;
+            background: #1f2430;
         }
 
         .skeleton-text {
             height: 1rem;
-            background: #4b5563;
+            background: #1f2430;
             border-radius: 0.25rem;
             margin: 0.75rem;
+        }
+
+        .skeleton::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Modern pulse animation for loading */
+        @keyframes pulse-modern {
+            0%, 100% { 
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.8;
+                transform: scale(1.02);
+            }
+        }
+
+        .skeleton-card {
+            animation: pulse-modern 2s ease-in-out infinite;
+        }
+
+        /* Modern loading spinner */
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(99, 102, 241, 0.1);
+            border-top: 3px solid #6366f1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Modern Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899, #3b82f6);
+            width: 0%;
+            transition: width 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.2) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.2) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 50px 50px;
+            animation: move 2s linear infinite;
+        }
+
+        @keyframes move {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
         }
 
         @keyframes pulse {
@@ -254,9 +645,10 @@
             top: calc(100% + 0.5rem);
             left: 0;
             right: 0;
-            background: #1f2937;
+            background: #0f1115;
+            border: 1px solid rgba(148, 163, 184, 0.12);
             border-radius: 1rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             max-height: 400px;
             overflow-y: auto;
             z-index: 50;
@@ -267,13 +659,13 @@
             align-items: center;
             gap: 1rem;
             padding: 0.75rem;
-            border-bottom: 1px solid #374151;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.08);
             cursor: pointer;
             transition: background 0.3s;
         }
 
         .search-result-item:hover {
-            background: rgba(55, 65, 81, 0.5);
+            background: rgba(24, 24, 27, 0.7);
         }
 
         .search-result-item:last-child {
@@ -308,29 +700,40 @@
         }
 
         .addon-card {
-            background: #1f2937;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            border: 1px solid #374151;
-            transition: all 0.3s;
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 
+                        0 4px 16px rgba(99, 102, 241, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .addon-card:hover {
-            border-color: #a855f7;
-            transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 48px 96px -24px rgba(99, 102, 241, 0.3), 
+                        0 32px 64px -32px rgba(139, 92, 246, 0.2),
+                        0 16px 32px rgba(236, 72, 153, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .addon-name {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #c084fc;
+            font-size: 1.375rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+            letter-spacing: -0.03em;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
 
         .addon-description {
-            color: #9ca3af;
+            color: #94a3b8;
             font-size: 0.875rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .addon-buttons {
@@ -339,27 +742,200 @@
         }
 
         .addon-btn {
-            background: #a855f7;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
             color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 0.875rem 1.5rem;
+            border-radius: 1rem;
             cursor: pointer;
             flex: 1;
-            transition: background 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4), 
+                        0 4px 16px rgba(139, 92, 246, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.025em;
+            backdrop-filter: blur(10px);
         }
 
         .addon-btn:hover {
-            background: #9333ea;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 48px rgba(99, 102, 241, 0.5), 
+                        0 8px 24px rgba(139, 92, 246, 0.4),
+                        0 4px 12px rgba(236, 72, 153, 0.3);
         }
 
         .addon-btn.copy-btn {
-            background: #3b82f6;
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
         }
 
         .addon-btn.copy-btn:hover {
-            background: #2563eb;
+            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4);
+        }
+
+        /* From Uiverse.io by Creatlydev - addon action buttons */
+        .button {
+            line-height: 1;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.35em;
+            padding: 0.75em 1em;
+            padding-right: 1.25em;
+            color: #fff;
+            border: 1px solid transparent;
+            font-weight: 700;
+            border-radius: 2em;
+            font-size: 1rem;
+            box-shadow: 0 0.7em 1.5em -0.5em hsla(249, 62%, 51%, 0.745);
+            transition: transform 0.3s;
+            background: linear-gradient(
+                90deg,
+                rgba(77, 54, 208, 1) 0%,
+                rgba(132, 116, 254, 1) 100%
+            );
+        }
+
+        .button__icon {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        .button:hover {
+            border-color: #f4f5f2;
+        }
+
+        .button:active {
+            transform: scale(0.98);
+            box-shadow: 0 0.5em 1.5em -0.5em hsla(249, 62%, 51%, 0.745);
+        }
+
+        /* Telegram join button (scoped) */
+        .addons-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .tg-join-btn {
+            font-family: inherit;
+            font-size: 18px;
+            background: linear-gradient(to bottom, #4dc7d9 0%, #66a6ff 100%);
+            color: white;
+            padding: 0.8em 1.2em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .tg-join-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tg-join-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .tg-join-btn span {
+            display: block;
+            margin-left: 0.4em;
+            transition: all 0.3s;
+        }
+
+        .tg-join-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+            transition: all 0.3s;
+        }
+
+        .tg-join-btn .tg-svg-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin-right: 0.5em;
+            transition: all 0.3s;
+        }
+
+        .tg-join-btn:hover .tg-svg-wrapper {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .tg-join-btn:hover svg {
+            transform: rotate(45deg);
+        }
+
+        /* Glassmorphism info banner */
+        .info-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(139, 92, 246, 0.2),
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.8), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .info-banner-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .info-banner-content {
+            flex: 1;
+        }
+
+        .info-banner-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+            background: linear-gradient(135deg, #93c5fd, #d8b4fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .info-banner-text {
+            font-size: 0.875rem;
+            color: #cbd5e1;
+            line-height: 1.6;
         }
 
         /* Toast notification */
@@ -408,6 +984,268 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 12px 35px rgba(139, 92, 246, 0.6);
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+
+        /* Modern scroll indicators */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(99, 102, 241, 0.1);
+            z-index: 9999;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
+                        0 8px 32px rgba(99, 102, 241, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #f1f5f9;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .modal-close:hover {
+            background: rgba(99, 102, 241, 0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .modal-poster {
+            width: 100%;
+            border-radius: 1rem;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-info h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+            letter-spacing: -0.025em;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .modal-meta-item {
+            background: rgba(99, 102, 241, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            color: #cbd5e1;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .modal-description {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-cast {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-cast h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #f1f5f9;
+        }
+
+        .modal-cast-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .modal-cast-item {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            color: #e2e8f0;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-watch-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4), 
+                        0 4px 16px rgba(139, 92, 246, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-watch-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 20px 48px rgba(99, 102, 241, 0.5), 
+                        0 8px 24px rgba(139, 92, 246, 0.4),
+                        0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Responsive Modal */
+        @media (max-width: 768px) {
+            .modal-body {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 1rem;
+                width: calc(100% - 2rem);
+                max-height: 90vh;
+            }
+            
+            .modal-info h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Custom dark scrollbars */
+        *::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        *::-webkit-scrollbar-track {
+            background: rgba(15, 17, 21, 0.5);
+            border-radius: 10px;
+        }
+        *::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #6366f1, #8b5cf6);
+            border-radius: 10px;
+            border: 2px solid rgba(15, 17, 21, 0.5);
+            transition: all 0.3s ease;
+        }
+        *::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #8b5cf6, #ec4899);
+        }
     </style>
 </head>
 <body>
@@ -423,7 +1261,7 @@
                             <line x1="2" y1="12" x2="22" y2="12"></line>
                         </svg>
                     </div>
-                    <span class="logo-text">StreamHub</span>
+                    <span class="logo-text">סינימה סטרים</span>
                 </div>
 
                 <div class="search-container">
@@ -471,13 +1309,82 @@
 
         <div id="addonsSection" class="content-section" style="display: none;">
             <div class="section-title">🔌 תוספי Stremio</div>
-            <div style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); border-radius: 1rem; padding: 1rem; margin-bottom: 1.5rem;">
-                <p style="font-weight: 600; margin-bottom: 0.5rem;">💡 הוראות התקנה:</p>
-                <p style="font-size: 0.875rem; color: #93c5fd;">1. פתח את Stremio קודם<br>2. לחץ על "התקן" או "העתק קישור" והדבק בתוך Stremio בחיפוש<br>3. אם זה לא עובד - העתק את הקישור ידנית</p>
+            <div class="info-banner">
+                <div class="info-banner-icon">💡</div>
+                <div class="info-banner-content">
+                    <p class="info-banner-title">הוראות התקנה</p>
+                    <p class="info-banner-text">
+                        1. פתח את Stremio קודם<br>
+                        2. לחץ על "התקן" או "העתק קישור" והדבק בתוך Stremio בחיפוש<br>
+                        3. אם זה לא עובד - העתק את הקישור ידנית
+                    </p>
+                </div>
             </div>
             <div id="addonsGrid" class="addons-grid"></div>
+            <div class="addons-footer">
+                <a class="tg-join-btn" href="https://t.me/coolstaffil25" target="_blank" rel="noopener noreferrer">
+                    <div class="tg-svg-wrapper-outer">
+                        <div class="tg-svg-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <span>הצטרפות לקבוצת הטלגרם</span>
+                </a>
+            </div>
         </div>
     </main>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="floatingParticles"></div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="movieModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img class="modal-poster" id="modalPoster" src="" alt="">
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <div class="modal-meta" id="modalMeta"></div>
+                    <div class="modal-description" id="modalDescription"></div>
+                    <div class="modal-cast">
+                        <h3>שחקנים</h3>
+                        <div class="modal-cast-list" id="modalCast"></div>
+                    </div>
+                    <div class="modal-actions">
+                        <a class="modal-watch-btn" id="modalWatchBtn" href="#" target="_blank">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5,3 19,12 5,21"></polygon>
+                            </svg>
+                            צפייה ב-Stremio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()" title="חזור למעלה">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
 
     <script>
         const TMDB_API_KEY = '93f0d2ee2e3e60d061d14d91cbb47b46';
@@ -519,9 +1426,12 @@
         let searchTimeout;
 
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
             fetchPopularContent();
             setupEventListeners();
             renderAddons();
+            createFloatingParticles();
+            
         });
 
         function setupEventListeners() {
@@ -567,6 +1477,7 @@
         }
 
         async function fetchPopularContent() {
+            showProgress();
             showSkeletons('moviesGrid', 10);
             showSkeletons('tvGrid', 10);
 
@@ -686,15 +1597,16 @@
                     : 'https://placehold.co/500x750/1f2937/9ca3af?text=No+Image';
 
                 const contentType = isMovie ? 'movie' : 'tv';
+                const year = releaseDate ? new Date(releaseDate).getFullYear() : '';
+                const rating = item.vote_average ? item.vote_average.toFixed(1) : '';
 
                 return `
                     <div class="content-card">
-                        <div class="card-image-container">
+                        <div class="card-image-container" onclick="openModal('${item.id}', '${contentType}')" style="cursor: pointer;">
                             <img src="${posterPath}" alt="${title}" class="card-image" loading="lazy">
-                            <div class="card-overlay">
-                                <button class="watch-btn" onclick="openStremio('${item.id}', '${contentType}')">
-                                    ▶ צפה ב-Stremio
-                                </button>
+                            <div class="badge">
+                                ${rating ? `<div class="badge-item"><span class="dot"></span><span>⭐ ${rating}</span></div>` : ''}
+                                ${year ? `<div class="badge-item"><span class="dot" style="background:#60a5fa"></span><span>${year}</span></div>` : ''}
                             </div>
                         </div>
                         <div class="card-info">
@@ -727,11 +1639,44 @@
                     <div class="addon-name">${addon.name}</div>
                     <div class="addon-description">${addon.description}</div>
                     <div class="addon-buttons">
-                        <button class="addon-btn" onclick="installAddon('${addon.url}')">
-                            התקן תוסף
+                        <button class="button" onclick="installAddon('${addon.url}')">
+                            <svg
+                                stroke-linejoin="round"
+                                stroke-linecap="round"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                viewBox="0 0 24 24"
+                                height="24"
+                                width="24"
+                                class="button__icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
+                                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+                                <path d="M7 11l5 5l5 -5"></path>
+                                <path d="M12 4l0 12"></path>
+                            </svg>
+                            <span class="button__text">התקן תוסף</span>
                         </button>
-                        <button class="addon-btn copy-btn" onclick="copyAddonLink('${addon.url}')">
-                            📋 העתק קישור
+                        <button class="button" onclick="copyAddonLink('${addon.url}')">
+                            <svg
+                                stroke-linejoin="round"
+                                stroke-linecap="round"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                viewBox="0 0 24 24"
+                                height="24"
+                                width="24"
+                                class="button__icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path d="M0 0h24v24H0z" stroke="none" fill="none"></path>
+                                <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+                                <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+                            </svg>
+                            <span class="button__text">העתק קישור</span>
                         </button>
                     </div>
                 </div>
@@ -757,36 +1702,27 @@
                 loadingMsg.textContent = '⏳ טוען...';
                 document.body.appendChild(loadingMsg);
 
-                const response = await fetch(
-                    `${TMDB_BASE_URL}/${type}/${tmdbId}/external_ids?api_key=${TMDB_API_KEY}`
-                );
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch IMDB ID');
-                }
-                
+                // Fetch IMDB ID for Stremio app
+                const response = await fetch(`${TMDB_BASE_URL}/${type}/${tmdbId}/external_ids?api_key=${TMDB_API_KEY}`);
                 const data = await response.json();
                 const imdbId = data.imdb_id;
 
                 document.body.removeChild(loadingMsg);
 
-                if (!imdbId) {
-                    alert('⚠️ לא נמצא IMDB ID עבור תוכן זה');
-                    return;
+                if (imdbId) {
+                    const stremioType = type === 'tv' ? 'series' : 'movie';
+                    const stremioUrl = `stremio://detail/${stremioType}/${imdbId}`;
+                    console.log('Opening Stremio app with IMDB ID:', stremioUrl);
+                    // Open Stremio app
+                    window.location.href = stremioUrl;
+                } else {
+                    // Fallback to TMDB ID
+                    const stremioType = type === 'tv' ? 'series' : 'movie';
+                    const stremioUrl = `stremio://detail/${stremioType}/${tmdbId}`;
+                    console.log('Opening Stremio app with TMDB ID:', stremioUrl);
+                    // Open Stremio app
+                    window.location.href = stremioUrl;
                 }
-
-                const stremioType = type === 'tv' ? 'series' : 'movie';
-                const stremioUrl = `stremio://detail/${stremioType}/${imdbId}`;
-                
-                console.log('Opening Stremio:', stremioUrl);
-                
-                window.location.href = stremioUrl;
-                
-                setTimeout(() => {
-                    if (!document.hidden) {
-                        showToast('💡 אם Stremio לא נפתח, פתח אותו ידנית ונסה שוב');
-                    }
-                }, 1000);
 
                 document.getElementById('searchResults').style.display = 'none';
                 document.getElementById('searchInput').value = '';
@@ -845,6 +1781,230 @@
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide FAB and update scroll progress
+        window.addEventListener('scroll', () => {
+            const fab = document.querySelector('.fab');
+            const scrollProgress = document.getElementById('scrollProgress');
+            
+            if (window.scrollY > 300) {
+                fab.style.display = 'flex';
+            } else {
+                fab.style.display = 'none';
+            }
+
+            // Update scroll progress
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+        });
+
+        // Progress bar functionality
+        function updateProgressBar(percent) {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percent + '%';
+        }
+
+        // Show progress during content loading
+        function showProgress() {
+            updateProgressBar(0);
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        updateProgressBar(0);
+                    }, 500);
+                }
+                updateProgressBar(progress);
+            }, 100);
+        }
+
+        // Create floating particles
+        function createFloatingParticles() {
+            const particlesContainer = document.getElementById('floatingParticles');
+            for (let i = 0; i < 9; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Modal functionality
+        function openModal(movieId, type = 'movie') {
+            const modal = document.getElementById('movieModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            // Show loading state
+            document.getElementById('modalTitle').textContent = 'טוען...';
+            document.getElementById('modalDescription').textContent = 'טוען פרטים...';
+            document.getElementById('modalCast').innerHTML = '<div class="modal-cast-item">טוען...</div>';
+            
+            // Fetch movie details
+            fetchMovieDetails(movieId, type);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('movieModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        async function fetchMovieDetails(movieId, type) {
+            try {
+                const endpoint = type === 'movie' ? 'movie' : 'tv';
+                const response = await fetch(`${TMDB_BASE_URL}/${endpoint}/${movieId}?api_key=${TMDB_API_KEY}&language=he`);
+                const data = await response.json();
+                
+                // Fetch cast details
+                const castResponse = await fetch(`${TMDB_BASE_URL}/${endpoint}/${movieId}/credits?api_key=${TMDB_API_KEY}&language=he`);
+                const castData = await castResponse.json();
+                
+                populateModal(data, castData, type);
+            } catch (error) {
+                console.error('Error fetching movie details:', error);
+                document.getElementById('modalTitle').textContent = 'שגיאה בטעינת הפרטים';
+                document.getElementById('modalDescription').textContent = 'לא ניתן לטעון את פרטי הסרט/הסדרה';
+            }
+        }
+
+        function populateModal(movie, cast, type) {
+            // Set poster
+            const posterUrl = movie.poster_path 
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : 'https://via.placeholder.com/500x750/1e293b/94a3b8?text=No+Image';
+            document.getElementById('modalPoster').src = posterUrl;
+            
+            // Set title
+            document.getElementById('modalTitle').textContent = movie.title || movie.name;
+            
+            // Set meta information
+            const metaContainer = document.getElementById('modalMeta');
+            metaContainer.innerHTML = '';
+            
+            if (movie.release_date || movie.first_air_date) {
+                const year = new Date(movie.release_date || movie.first_air_date).getFullYear();
+                const metaItem = document.createElement('div');
+                metaItem.className = 'modal-meta-item';
+                metaItem.textContent = year;
+                metaContainer.appendChild(metaItem);
+            }
+            
+            if (movie.vote_average) {
+                const ratingItem = document.createElement('div');
+                ratingItem.className = 'modal-meta-item';
+                ratingItem.innerHTML = `⭐ ${movie.vote_average.toFixed(1)}`;
+                metaContainer.appendChild(ratingItem);
+            }
+            
+            if (movie.runtime || movie.episode_run_time?.[0]) {
+                const runtimeItem = document.createElement('div');
+                runtimeItem.className = 'modal-meta-item';
+                const runtime = movie.runtime || movie.episode_run_time?.[0];
+                runtimeItem.textContent = `${runtime} דקות`;
+                metaContainer.appendChild(runtimeItem);
+            }
+            
+            if (movie.genres && movie.genres.length > 0) {
+                const genreItem = document.createElement('div');
+                genreItem.className = 'modal-meta-item';
+                genreItem.textContent = movie.genres[0].name;
+                metaContainer.appendChild(genreItem);
+            }
+            
+            // Set description
+            document.getElementById('modalDescription').textContent = movie.overview || 'אין תיאור זמין';
+            
+            // Set cast
+            const castContainer = document.getElementById('modalCast');
+            castContainer.innerHTML = '';
+            
+            if (cast.cast && cast.cast.length > 0) {
+                cast.cast.slice(0, 8).forEach(actor => {
+                    const castItem = document.createElement('div');
+                    castItem.className = 'modal-cast-item';
+                    castItem.textContent = actor.name;
+                    castContainer.appendChild(castItem);
+                });
+            } else {
+                const noCastItem = document.createElement('div');
+                noCastItem.className = 'modal-cast-item';
+                noCastItem.textContent = 'אין מידע על שחקנים';
+                castContainer.appendChild(noCastItem);
+            }
+            
+            // Set watch button
+            const watchBtn = document.getElementById('modalWatchBtn');
+            const title = movie.title || movie.name;
+            const year = new Date(movie.release_date || movie.first_air_date).getFullYear();
+            const tmdbId = movie.id;
+            
+            // Fetch IMDB ID for Stremio app
+            fetch(`${TMDB_BASE_URL}/${type}/${tmdbId}/external_ids?api_key=${TMDB_API_KEY}`)
+                .then(response => response.json())
+                .then(data => {
+                    const imdbId = data.imdb_id;
+                    if (imdbId) {
+                        const stremioType = type === 'tv' ? 'series' : 'movie';
+                        const stremioUrl = `stremio://detail/${stremioType}/${imdbId}`;
+                        watchBtn.href = stremioUrl;
+                        watchBtn.onclick = function(e) {
+                            e.preventDefault();
+                            // Open Stremio app
+                            window.location.href = stremioUrl;
+                        };
+                    } else {
+                        // Fallback to TMDB ID if no IMDB ID
+                        const stremioType = type === 'tv' ? 'series' : 'movie';
+                        const stremioUrl = `stremio://detail/${stremioType}/${tmdbId}`;
+                        watchBtn.href = stremioUrl;
+                        watchBtn.onclick = function(e) {
+                            e.preventDefault();
+                            // Open Stremio app
+                            window.location.href = stremioUrl;
+                        };
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching IMDB ID:', error);
+                    // Fallback to TMDB ID
+                    const stremioType = type === 'tv' ? 'series' : 'movie';
+                    const stremioUrl = `stremio://detail/${stremioType}/${tmdbId}`;
+                    watchBtn.href = stremioUrl;
+                    watchBtn.onclick = function(e) {
+                        e.preventDefault();
+                        // Open Stremio app
+                        window.location.href = stremioUrl;
+                    };
+                });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('movieModal').addEventListener('click', (e) => {
+            if (e.target.id === 'movieModal') {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+
     </script>
 </body>
 </html>
