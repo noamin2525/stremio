@@ -1414,9 +1414,10 @@
         /* Responsive Modal */
         @media (max-width: 768px) {
             .modal-overlay {
-                padding: 0.5rem;
+                padding: 0;
                 align-items: flex-start;
-                padding-top: 2rem;
+                justify-content: center;
+                padding-top: 1rem;
             }
             
             .modal-body {
@@ -1427,13 +1428,15 @@
             .modal-content {
                 padding: 1.5rem;
                 margin: 0;
-                width: 100%;
-                max-width: 100%;
-                max-height: calc(100vh - 4rem);
-                max-height: calc(100dvh - 4rem);
+                width: calc(100% - 2rem);
+                max-width: calc(100% - 2rem);
+                max-height: calc(100vh - 2rem);
+                max-height: calc(100dvh - 2rem);
                 border-radius: 1rem;
                 transform: none;
                 position: relative;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
             
             .modal-overlay.show .modal-content {
@@ -1472,6 +1475,11 @@
                 margin: -1.5rem -1.5rem 1rem -1.5rem;
                 padding: 1rem 1.5rem;
                 border-radius: 1rem 1rem 0 0;
+            }
+            
+            /* Prevent modal from closing when scrolling */
+            .modal-content {
+                touch-action: pan-y;
             }
         }
 
@@ -1697,27 +1705,33 @@
                     });
                 });
                 
-                // Add swipe gestures for modal
+                // Add swipe gestures for modal (only on modal overlay)
                 let startX = 0;
                 let startY = 0;
+                let isModalOpen = false;
                 
-                document.addEventListener('touchstart', (e) => {
-                    startX = e.touches[0].clientX;
-                    startY = e.touches[0].clientY;
+                const modal = document.getElementById('movieModal');
+                
+                modal.addEventListener('touchstart', (e) => {
+                    if (e.target === modal) { // Only on overlay, not content
+                        startX = e.touches[0].clientX;
+                        startY = e.touches[0].clientY;
+                        isModalOpen = true;
+                    }
                 });
                 
-                document.addEventListener('touchend', (e) => {
-                    const endX = e.changedTouches[0].clientX;
-                    const endY = e.changedTouches[0].clientY;
-                    const diffX = startX - endX;
-                    const diffY = startY - endY;
-                    
-                    // Swipe down to close modal
-                    if (Math.abs(diffY) > Math.abs(diffX) && diffY > 50) {
-                        const modal = document.getElementById('movieModal');
-                        if (modal && modal.classList.contains('show')) {
+                modal.addEventListener('touchend', (e) => {
+                    if (e.target === modal && isModalOpen) { // Only on overlay, not content
+                        const endX = e.changedTouches[0].clientX;
+                        const endY = e.changedTouches[0].clientY;
+                        const diffX = startX - endX;
+                        const diffY = startY - endY;
+                        
+                        // Swipe down to close modal (only if swiping on overlay)
+                        if (Math.abs(diffY) > Math.abs(diffX) && diffY > 100) {
                             closeModal();
                         }
+                        isModalOpen = false;
                     }
                 });
             }
@@ -2327,9 +2341,9 @@
                 });
         }
 
-        // Close modal when clicking outside
+        // Close modal when clicking outside (only on desktop)
         document.getElementById('movieModal').addEventListener('click', (e) => {
-            if (e.target.id === 'movieModal') {
+            if (e.target.id === 'movieModal' && !isMobile()) {
                 closeModal();
             }
         });
