@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>תוספי Stremio - סינימה סטרים</title>
+    <title>tosfi Stremio - סינימה סטרים</title>
     <style>
         * {
             margin: 0;
@@ -137,11 +137,49 @@
         .toast.show {
             opacity: 1;
         }
+        /* סגנון חדש ל섹ציה של יצירת חשבון */
+        .account-section {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin-bottom: 2rem;
+        }
+        .account-section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        .account-steps ol {
+            padding-right: 1.5rem;
+            margin: 1rem 0;
+        }
+        .account-steps li {
+            margin-bottom: 0.75rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="section-title">🔌 תוספי Stremio</div>
+
+        <!-- סעיף חדש ליצירת חשבון -->
+        <div class="account-section">
+            <h2 class="account-section-title">איך מתחילים? - יצירת חשבון ב-Stremio</h2>
+            <div class="account-steps">
+                <p>Stremio הוא יישום שמאפשר לך לצפות ב сериалים, סרטים, ערוצים ותכנים נוספים ממספר מקורות, כולל תוספים שיכולים להרחיב את היכולות שלו. כדי להתחיל, תצטרך להתקין את היישום ול Registr yourself (אם תרצה).</p>
+                <ol>
+                    <li><strong>הורדה והתקנה:</strong> עבור לאתר הרשמי של Stremio (<a href="https://www.stremio.com/" target="_blank" rel="noopener noreferrer" style="color: #60a5fa;">https://www.stremio.com/</a>) והורד את הגירסא המתאימה למחשב או המכשיר שלך (Windows, Mac, Linux, Android, iOS, Fire TV, Apple TV וכו'). התקן את היישום.</li>
+                    <li><strong>פתיחה:</strong> לאחר ההתקנה, פתח את היישום.</li>
+                    <li><strong>הרשמה (אופציונלי):</strong> בפעם הראשונה שפתחת את Stremio, תתבקש להירשם. רישום אינו חובה כדי לצפות בחלק מהתכנים, אך הוא מאפשר לך לסנכרן את הרשומות שלך, להגדיר הרחבות מותאמות אישית, ולהשתמש בפונקציות כמו רשימת מעקב. תוכל להירשם באמצעות כתובת דוא"ל או חשבון Google.</li>
+                    <li><strong>סיום ההגדרות:</strong> בצע את שלבי ההגדרה הראשונית, כולל בחירת תחומי עניין (סרטים, סדרות, מוזיקה, וכו').</li>
+                    <li><strong>התקנת תוספים:</strong> כעת אתה יכול לחזור לדף זה ולהתקין את התוספים שברצונך להשתמש בהם, על ידי לחיצה על כפתור "התקן תוסף" או "העתק קישור" ולעקוב אחרי ההוראות.</li>
+                </ol>
+            </div>
+        </div>
+
         <div class="info-banner">
             <div class="info-banner-content">
                 <p class="info-banner-title">הוראות התקנה</p>
@@ -152,7 +190,7 @@
         </div>
         <div id="addonsGrid" class="addons-grid"></div>
         <div class="addons-footer">
-            <a class="tg-join-btn" href="https://t.me/stremioedil  " target="_blank" rel="noopener noreferrer">
+            <a class="tg-join-btn" href="https://t.me/stremioedil   " target="_blank" rel="noopener noreferrer">
                 <span>הצטרפות לקבוצת הטלגרם</span>
             </a>
         </div>
@@ -250,3 +288,4 @@
     </script>
 </body>
 </html>
+
