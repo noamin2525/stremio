@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <title>tosfi Stremio - סינימה סטרים</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,112 +13,150 @@
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 25%, #16213e 50%, #0f172a 75%, #0c0c0f 100%);
-            color: #f1f5f9;
+            background: linear-gradient(135deg, #0a0a12 0%, #121026 25%, #1a123a 50%, #0f0c29 100%);
+            color: #e2e8f0;
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
         }
         .container {
             max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 2.5rem auto;
+            padding: 0 1.25rem;
         }
         .section-title {
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 800;
             margin-bottom: 2rem;
-            color: #f1f5f9;
-            letter-spacing: -0.05em;
+            background: linear-gradient(90deg, #8b5cf6, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            letter-spacing: -0.03em;
         }
         .info-banner {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 1rem;
+            gap: 1.25rem;
+            background: rgba(45, 40, 75, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            border-radius: 16px;
             padding: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
-        .info-banner-content p { margin: 0.25rem 0; }
+        .info-banner-content p { margin: 0.35rem 0; font-size: 1.05rem; }
         .info-banner-title {
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            font-size: 1.25rem;
             background: linear-gradient(135deg, #93c5fd, #d8b4fe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .addons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.75rem;
         }
         .addon-card {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(20px);
-            border-radius: 1.5rem;
+            background: rgba(25, 22, 45, 0.65);
+            backdrop-filter: blur(14px);
+            border-radius: 20px;
             padding: 2rem;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+        .addon-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 26px rgba(139, 92, 246, 0.25);
+            border-color: rgba(139, 92, 246, 0.5);
         }
         .addon-name {
-            font-size: 1.375rem;
+            font-size: 1.45rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            color: #f1f5f9;
+            color: #f0f4ff;
+            background: linear-gradient(90deg, #c4b5fd, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .addon-description {
-            color: #94a3b8;
+            color: #cbd5e1;
             margin-bottom: 1.5rem;
-            line-height: 1.6;
+            font-size: 1.02rem;
+            line-height: 1.65;
         }
         .button {
             line-height: 1;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.35em;
-            padding: 0.75em 1em;
-            color: #fff;
+            justify-content: center;
+            gap: 0.4em;
+            padding: 0.85em 1.25em;
+            color: white;
             border: none;
             font-weight: 700;
-            border-radius: 2em;
-            font-size: 1rem;
-            background: linear-gradient(90deg, rgba(77, 54, 208, 1), rgba(132, 116, 254, 1));
+            border-radius: 12px;
+            font-size: 1.05rem;
             flex: 1;
-            transition: transform 0.3s;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .button.install {
+            background: linear-gradient(135deg, #7e22ce, #a855f7);
+        }
+        .button.copy {
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
         }
         .button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
         .button:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
         .addons-footer {
             display: flex;
             justify-content: center;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
         }
         .tg-join-btn {
-            font-size: 18px;
-            background: linear-gradient(to bottom, #4dc7d9, #66a6ff);
+            font-size: 1.15rem;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
             color: white;
-            padding: 0.8em 1.2em;
+            padding: 0.9em 1.6em;
             display: inline-flex;
             align-items: center;
+            gap: 0.6em;
             border: none;
-            border-radius: 25px;
+            border-radius: 14px;
             text-decoration: none;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 18px rgba(124, 58, 237, 0.4);
+            font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .tg-join-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.55);
         }
         @media (max-width: 768px) {
             .addons-grid {
                 grid-template-columns: 1fr;
             }
             .container {
-                margin: 1rem auto;
-                padding: 0 0.5rem;
+                margin: 1.25rem auto;
+                padding: 0 0.75rem;
+            }
+            .section-title {
+                font-size: 1.85rem;
+            }
+            .info-banner {
+                flex-direction: column;
+                text-align: center;
             }
         }
         .toast {
@@ -125,39 +164,54 @@
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(34, 197, 94, 0.95);
+            background: rgba(16, 185, 129, 0.95);
             color: white;
             padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             z-index: 10000;
             opacity: 0;
             transition: opacity 0.3s ease;
+            font-weight: 600;
+            font-size: 1.05rem;
         }
         .toast.show {
             opacity: 1;
         }
-        /* סגנון חדש ל섹ציה של יצירת חשבון */
+
+        /* סגנון חדש ליצירת חשבון */
         .account-section {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(20px);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            margin-bottom: 2rem;
+            background: rgba(25, 22, 45, 0.65);
+            backdrop-filter: blur(14px);
+            border-radius: 20px;
+            padding: 2.25rem;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
         }
         .account-section-title {
-            font-size: 1.5rem;
+            font-size: 1.65rem;
             font-weight: 800;
-            margin-bottom: 1rem;
-            color: #f1f5f9;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(90deg, #c4b5fd, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .account-steps ol {
-            padding-right: 1.5rem;
-            margin: 1rem 0;
+            padding-right: 1.75rem;
+            margin: 1.25rem 0;
+            font-size: 1.05rem;
         }
         .account-steps li {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.85rem;
+            color: #e2e8f0;
+        }
+        .account-steps a {
+            color: #818cf8;
+            text-decoration: underline;
+        }
+        .account-steps a:hover {
+            color: #c4b5fd;
         }
     </style>
 </head>
@@ -165,17 +219,16 @@
     <div class="container">
         <div class="section-title">🔌 תוספי Stremio</div>
 
-        <!-- סעיף חדש ליצירת חשבון -->
         <div class="account-section">
             <h2 class="account-section-title">איך מתחילים? - יצירת חשבון ב-Stremio</h2>
             <div class="account-steps">
-                <p>Stremio הוא יישום שמאפשר לך לצפות ב сериалים, סרטים, ערוצים ותכנים נוספים ממספר מקורות, כולל תוספים שיכולים להרחיב את היכולות שלו. כדי להתחיל, תצטרך להתקין את היישום ול Registr yourself (אם תרצה).</p>
+                <p>Stremio הוא יישום שמאפשר לך לצפות בסרטים, סדרות, ערוצים ותכנים נוספים ממספר מקורות, כולל תוספים שיכולים להרחיב את היכולות שלו. כדי להתחיל, תצטרך להתקין את היישום ולהירשם (אופציונלי).</p>
                 <ol>
-                    <li><strong>הורדה והתקנה:</strong> עבור לאתר הרשמי של Stremio (<a href="https://www.stremio.com/" target="_blank" rel="noopener noreferrer" style="color: #60a5fa;">https://www.stremio.com/</a>) והורד את הגירסא המתאימה למחשב או המכשיר שלך (Windows, Mac, Linux, Android, iOS, Fire TV, Apple TV וכו'). התקן את היישום.</li>
+                    <li><strong>הורדה והתקנה:</strong> עבור לאתר הרשמי של Stremio (<a href="https://www.stremio.com/" target="_blank" rel="noopener noreferrer">https://www.stremio.com/</a>) והורד את הגרסה המתאימה למכשיר שלך (Windows, Mac, Linux, Android, iOS, Fire TV, Apple TV וכו').</li>
                     <li><strong>פתיחה:</strong> לאחר ההתקנה, פתח את היישום.</li>
-                    <li><strong>הרשמה (אופציונלי):</strong> בפעם הראשונה שפתחת את Stremio, תתבקש להירשם. רישום אינו חובה כדי לצפות בחלק מהתכנים, אך הוא מאפשר לך לסנכרן את הרשומות שלך, להגדיר הרחבות מותאמות אישית, ולהשתמש בפונקציות כמו רשימת מעקב. תוכל להירשם באמצעות כתובת דוא"ל או חשבון Google.</li>
-                    <li><strong>סיום ההגדרות:</strong> בצע את שלבי ההגדרה הראשונית, כולל בחירת תחומי עניין (סרטים, סדרות, מוזיקה, וכו').</li>
-                    <li><strong>התקנת תוספים:</strong> כעת אתה יכול לחזור לדף זה ולהתקין את התוספים שברצונך להשתמש בהם, על ידי לחיצה על כפתור "התקן תוסף" או "העתק קישור" ולעקוב אחרי ההוראות.</li>
+                    <li><strong>הרשמה (אופציונלי):</strong> בפעם הראשונה, תתבקש להירשם. רישום אינו חובה לצפייה בסיסית, אך מאפשר סנכרון, רשימת מעקב והתאמות אישיות.</li>
+                    <li><strong>הגדרות ראשוניות:</strong> בחר נושאים לפי העדפות (סרטים, סדרות, מוזיקה, ספורט וכו').</li>
+                    <li><strong>התקנת תוספים:</strong> חזור לדף זה — לחץ על "התקן תוסף" או "העתק קישור" והשתמש ב-Stremio כדי להוסיף את התוספים.</li>
                 </ol>
             </div>
         </div>
@@ -183,15 +236,17 @@
         <div class="info-banner">
             <div class="info-banner-content">
                 <p class="info-banner-title">הוראות התקנה</p>
-                <p>1. פתח את Stremio קודם</p>
-                <p>2. לחץ על "התקן" או "העתק קישור" והדבק בתוך Stremio בחיפוש</p>
-                <p>3. אם זה לא עובד – העתק את הקישור ידנית</p>
+                <p>1. ודא ש-Stremio רץ ברקע</p>
+                <p>2. לחץ על "התקן" או "העתק קישור" והדבק בתוך Stremio</p>
+                <p>3. אם זה לא עובד — העתק ידנית את הקישור</p>
             </div>
         </div>
+
         <div id="addonsGrid" class="addons-grid"></div>
+
         <div class="addons-footer">
             <a class="tg-join-btn" href="https://t.me/stremioedil" target="_blank" rel="noopener noreferrer">
-                <span>הצטרפות לקבוצת הטלגרם</span>
+                <span>הצטרף לקבוצת הטלגרם</span>
             </a>
         </div>
     </div>
@@ -208,22 +263,22 @@
             {
                 name: 'Wizdom Subtitles',
                 url: 'stremio://4b139a4b7f94-wizdom-stremio-v2.baby-beamup.club/manifest.json',
-                description: 'כתוביות עבריות ממאגר ויזדום'
+                description: 'כתוביות עבריות ממאגר ויזדום – איכות וدقت'
             },
             {
                 name: 'Ktuvit Subtitles',
                 url: 'stremio://4b139a4b7f94-ktuvit-stremio.baby-beamup.club/manifest.json',
-                description: 'כתוביות עבריות ממאגר כתובית'
+                description: 'כתוביות עבריות מהמאגר הפופולרי כתובית'
             },
             {
                 name: 'Movie Release Dates',
                 url: 'stremio://stremio7rd-movies-online-dates.vercel.app/manifest.json',
-                description: 'מעקב אחר תאריכי יציאה של סרטים חדשים'
+                description: 'מעקב בזמן אמת אחר תאריכי יציאה של סרטים לקולנוע ולסטרימינג'
             },
             {
                 name: 'הכל במקום אחד',
                 url: 'stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json',
-                description: 'תוסף מקיף המאגד מספר מקורות סטרימינג במקום אחד'
+                description: 'תוסף אגודה שממגש מקורות סטרימינג שונים לממשק אחד'
             }
         ];
 
@@ -233,11 +288,11 @@
                 <div class="addon-card">
                     <div class="addon-name">${addon.name}</div>
                     <div class="addon-description">${addon.description}</div>
-                    <div style="display:flex;gap:0.75rem;">
-                        <button class="button" onclick="installAddon('${addon.url}')">
-                            <span>התקן תוסף</span>
+                    <div style="display:flex;gap:0.85rem;">
+                        <button class="button install" onclick="installAddon('${addon.url}')">
+                            <span>התקן</span>
                         </button>
-                        <button class="button" onclick="copyAddonLink('${addon.url}')">
+                        <button class="button copy" onclick="copyAddonLink('${addon.url}')">
                             <span>העתק קישור</span>
                         </button>
                     </div>
@@ -248,28 +303,28 @@
         function installAddon(url) {
             window.location.href = url;
             setTimeout(() => {
-                showToast('💡 פתח את Stremio קודם ונסה שוב, או לחץ על "העתק קישור"');
+                showToast('💡 ודא ש-Stremio פתוח ברקע');
             }, 1000);
         }
 
         async function copyAddonLink(url) {
             try {
                 await navigator.clipboard.writeText(url);
-                showToast('✅ הקישור הועתק! הדבק אותו בתוך Stremio');
+                showToast('✅ הועתק! הדבק בתוך Stremio');
             } catch (err) {
-                const textArea = document.createElement('textarea');
-                textArea.value = url;
-                textArea.style.position = 'fixed';
-                textArea.style.left = '-999999px';
-                document.body.appendChild(textArea);
-                textArea.select();
+                const ta = document.createElement('textarea');
+                ta.value = url;
+                ta.style.position = 'fixed';
+                ta.style.left = '-999999px';
+                document.body.appendChild(ta);
+                ta.select();
                 try {
                     document.execCommand('copy');
-                    showToast('✅ הקישור הועתק! הדבק אותו בתוך Stremio');
-                } catch (err) {
-                    showToast('❌ שגיאה בהעתקה. נסה שוב');
+                    showToast('✅ הועתק! הדבק בתוך Stremio');
+                } catch (e) {
+                    showToast('❌ שגיאה בהעתקה');
                 }
-                document.body.removeChild(textArea);
+                document.body.removeChild(ta);
             }
         }
 
@@ -277,9 +332,7 @@
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
