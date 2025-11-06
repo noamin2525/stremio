@@ -3,256 +3,715 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>tosfi Stremio - סינימה סטרים</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>מרכז ההרחבות של Stremio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
+        :root {
+            color-scheme: dark;
+            --bg-base: #06070f;
+            --bg-panel: rgba(15, 18, 34, 0.75);
+            --bg-panel-strong: rgba(28, 35, 58, 0.85);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5f5;
+            --accent: #4f46e5;
+            --accent-soft: #818cf8;
+            --accent-hot: #f97316;
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --shadow-lg: 0 30px 100px rgba(15, 23, 42, 0.55);
+            --shadow-md: 0 18px 45px rgba(14, 20, 35, 0.45);
+            --shadow-sm: 0 12px 30px rgba(15, 23, 42, 0.35);
+        }
+        *, *::before, *::after {
             box-sizing: border-box;
         }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0a0a12 0%, #121026 25%, #1a123a 50%, #0f0c29 100%);
-            color: #e2e8f0;
+            margin: 0;
+            font-family: 'Rubik', 'Alef', 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at 10% 10%, rgba(79, 70, 229, 0.2), transparent 55%),
+                        radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.25), transparent 60%),
+                        linear-gradient(160deg, #05060e 0%, #080a1a 45%, #0b122b 100%);
+            color: var(--text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
-        .container {
-            max-width: 1400px;
-            margin: 2.5rem auto;
-            padding: 0 1.25rem;
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(650px circle at 85% 10%, rgba(99, 102, 241, 0.35), transparent 70%);
+            opacity: 0.45;
+            pointer-events: none;
+            mix-blend-mode: screen;
         }
-        .section-title {
-            font-size: 2.25rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            background: linear-gradient(90deg, #8b5cf6, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-            letter-spacing: -0.03em;
+        .page-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 6rem;
         }
-        .info-banner {
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 1.75rem 0 0;
+            background: linear-gradient(180deg, rgba(5, 7, 15, 0.95), rgba(5, 7, 15, 0));
+            backdrop-filter: blur(18px);
+        }
+        .topbar {
             display: flex;
-            align-items: flex-start;
-            gap: 1.25rem;
-            background: rgba(45, 40, 75, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(139, 92, 246, 0.35);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.65rem 1.2rem;
+            border-radius: 999px;
+            background: rgba(9, 12, 22, 0.7);
+            border: 1px solid rgba(129, 140, 248, 0.2);
+            box-shadow: 0 18px 45px rgba(30, 41, 59, 0.45);
         }
-        .info-banner-content p { margin: 0.35rem 0; font-size: 1.05rem; }
-        .info-banner-title {
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 16px;
+            background: conic-gradient(from 0deg, #38bdf8, #818cf8, #c084fc, #38bdf8);
+            display: grid;
+            place-items: center;
+            color: #020617;
             font-weight: 700;
-            margin-bottom: 0.6rem;
-            font-size: 1.25rem;
-            background: linear-gradient(135deg, #93c5fd, #d8b4fe);
+            letter-spacing: -0.03em;
+            box-shadow: 0 16px 40px rgba(99, 102, 241, 0.6);
+        }
+        .brand-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            transition: color 0.3s ease, background 0.3s ease;
+        }
+        nav a:hover {
+            color: var(--text-primary);
+            background: rgba(129, 140, 248, 0.16);
+        }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.6rem;
+            border-radius: 999px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(120deg, #38bdf8, #4f46e5, #f97316);
+            color: #020617;
+            text-decoration: none;
+            box-shadow: 0 25px 65px rgba(79, 70, 229, 0.45);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 35px 80px rgba(129, 140, 248, 0.4);
+        }
+        .cta-button:focus-visible {
+            outline: 2px solid var(--accent-soft);
+            outline-offset: 3px;
+        }
+        main {
+            margin-top: 3.5rem;
+        }
+        .hero {
+            position: relative;
+            border-radius: var(--radius-xl);
+            padding: 3.5rem 3.2rem 3rem;
+            overflow: hidden;
+            border: 1px solid rgba(99, 102, 241, 0.28);
+            background: linear-gradient(140deg, rgba(15, 23, 42, 0.9), rgba(15, 118, 110, 0.18)),
+                        linear-gradient(180deg, rgba(24, 24, 43, 0.8), rgba(24, 24, 43, 0.2));
+            box-shadow: var(--shadow-lg);
+        }
+        .hero::before, .hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(0px);
+            opacity: 0.55;
+            mix-blend-mode: screen;
+        }
+        .hero::before {
+            width: 460px;
+            height: 460px;
+            right: -160px;
+            top: -120px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.6), transparent 65%);
+        }
+        .hero::after {
+            width: 480px;
+            height: 480px;
+            left: -180px;
+            bottom: -180px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.55), transparent 70%);
+        }
+        .hero-content {
+            position: relative;
+            max-width: 620px;
+            z-index: 2;
+        }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            background: rgba(56, 189, 248, 0.12);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #bae6fd;
+            margin-bottom: 1.4rem;
+        }
+        .hero-title {
+            font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+        .hero-title strong {
+            color: transparent;
+            background: linear-gradient(90deg, #22d3ee, #818cf8, #f97316);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.8rem;
+        }
+        .hero-quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.2rem;
+            margin-top: 2.6rem;
+        }
+        .stat-card {
+            border-radius: var(--radius-lg);
+            padding: 1.2rem 1.4rem;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(148, 163, 255, 0.18);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+        .stat-value {
+            font-size: 1.9rem;
+            font-weight: 600;
+        }
+        .stat-meta {
+            font-size: 0.9rem;
+            color: rgba(226, 232, 240, 0.75);
+        }
+        .layout-grid {
+            margin-top: 4.5rem;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 2.5rem;
+            align-items: stretch;
+        }
+        .info-panel {
+            border-radius: var(--radius-xl);
+            padding: 2.6rem;
+            background: linear-gradient(150deg, rgba(15, 23, 42, 0.9), rgba(40, 54, 99, 0.65));
+            border: 1px solid rgba(99, 102, 241, 0.28);
+            box-shadow: var(--shadow-md);
+        }
+        .panel-title {
+            font-size: 1.65rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .panel-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .feature-list {
+            display: grid;
+            gap: 1.3rem;
+        }
+        .feature {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.85rem;
+            align-items: start;
+        }
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: rgba(56, 189, 248, 0.18);
+            display: grid;
+            place-items: center;
+            font-size: 1.35rem;
+        }
+        .feature h4 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+        .feature p {
+            margin: 0.4rem 0 0;
+            color: rgba(226, 232, 240, 0.7);
+            font-size: 0.95rem;
+        }
+        .addons-showcase {
+            display: grid;
+            gap: 1.5rem;
         }
         .addons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.75rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.4rem;
         }
         .addon-card {
-            background: rgba(25, 22, 45, 0.65);
-            backdrop-filter: blur(14px);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+            position: relative;
+            padding: 1.6rem 1.4rem;
+            border-radius: var(--radius-lg);
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(148, 163, 255, 0.22);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: transform 0.35s ease, border-color 0.35s ease;
+        }
+        .addon-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(129, 140, 248, 0.18), rgba(14, 165, 233, 0));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         .addon-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 10px 26px rgba(139, 92, 246, 0.25);
-            border-color: rgba(139, 92, 246, 0.5);
+            border-color: rgba(56, 189, 248, 0.45);
+        }
+        .addon-card:hover::before {
+            opacity: 1;
         }
         .addon-name {
-            font-size: 1.45rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: #f0f4ff;
-            background: linear-gradient(90deg, #c4b5fd, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.35rem;
         }
-        .addon-description {
-            color: #cbd5e1;
-            margin-bottom: 1.5rem;
-            font-size: 1.02rem;
-            line-height: 1.65;
+        .addon-meta {
+            color: rgba(148, 163, 184, 0.85);
+            font-size: 0.9rem;
         }
-        .button {
-            line-height: 1;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4em;
-            padding: 0.85em 1.25em;
-            color: white;
-            border: none;
-            font-weight: 700;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            flex: 1;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        .button.install {
-            background: linear-gradient(135deg, #7e22ce, #a855f7);
-        }
-        .button.copy {
-            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
-        }
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-        }
-        .button:active {
-            transform: scale(0.97);
-        }
-        .addons-footer {
-            display: flex;
-            justify-content: center;
-            margin-top: 2.5rem;
-        }
-        .tg-join-btn {
-            font-size: 1.15rem;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            color: white;
-            padding: 0.9em 1.6em;
+        .addon-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.6em;
-            border: none;
-            border-radius: 14px;
-            text-decoration: none;
-            box-shadow: 0 6px 18px rgba(124, 58, 237, 0.4);
-            font-weight: 700;
-            transition: transform 0.2s, box-shadow 0.2s;
+            gap: 0.35rem;
+            margin-top: 0.9rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(248, 250, 252, 0.08);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
-        .tg-join-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.55);
+        .addons-install {
+            margin-top: 4rem;
+            border-radius: var(--radius-xl);
+            padding: 2.6rem 2.8rem;
+            background: linear-gradient(160deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            box-shadow: var(--shadow-md);
+            display: grid;
+            gap: 2.5rem;
         }
-        @media (max-width: 768px) {
-            .addons-grid {
-                grid-template-columns: 1fr;
-            }
-            .container {
-                margin: 1.25rem auto;
-                padding: 0 0.75rem;
-            }
-            .section-title {
-                font-size: 1.85rem;
-            }
-            .info-banner {
-                flex-direction: column;
-                text-align: center;
-            }
+        .addons-install-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .addons-install-instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        .addons-install-instructions div {
+            background: rgba(12, 18, 34, 0.7);
+            border: 1px solid rgba(148, 163, 255, 0.2);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.1rem;
+            display: grid;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .instruction-step {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(130deg, rgba(79, 70, 229, 0.8), rgba(56, 189, 248, 0.65));
+            display: grid;
+            place-items: center;
+            font-weight: 600;
+            color: #020617;
+            font-size: 0.95rem;
+        }
+        .addons-install-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.4rem;
+        }
+        .addon-action-card {
+            position: relative;
+            padding: 1.75rem 1.6rem;
+            border-radius: var(--radius-lg);
+            background: rgba(8, 12, 24, 0.85);
+            border: 1px solid rgba(99, 102, 241, 0.22);
+            box-shadow: var(--shadow-sm);
+            display: grid;
+            gap: 1.2rem;
+            min-height: 190px;
+            transition: transform 0.35s ease, border-color 0.35s ease;
+        }
+        .addon-action-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(129, 140, 248, 0.16), rgba(14, 165, 233, 0));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .addon-action-card > * {
+            position: relative;
+            z-index: 1;
+        }
+        .addon-action-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(56, 189, 248, 0.45);
+        }
+        .addon-action-card:hover::before {
+            opacity: 1;
+        }
+        .addon-action-name {
+            font-weight: 600;
+            font-size: 1.15rem;
+        }
+        .addon-action-description {
+            color: rgba(203, 213, 225, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .addon-action-buttons {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .addon-action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.65rem 1.35rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .addon-action-button.install {
+            background: linear-gradient(120deg, #38bdf8, #4f46e5, #f97316);
+            color: #020617;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        .addon-action-button.copy {
+            background: transparent;
+            color: var(--text-secondary);
+            border-color: rgba(129, 140, 248, 0.35);
+        }
+        .addon-action-button:hover {
+            transform: translateY(-2px);
+        }
+        .addon-action-button:focus-visible {
+            outline: 3px solid rgba(129, 140, 248, 0.7);
+            outline-offset: 2px;
         }
         .toast {
             position: fixed;
-            bottom: 2rem;
+            bottom: 2.5rem;
             left: 50%;
-            transform: translateX(-50%);
-            background: rgba(16, 185, 129, 0.95);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            z-index: 10000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-weight: 600;
-            font-size: 1.05rem;
+            transform: translateX(-50%) translateY(120%);
+            padding: 0.9rem 1.4rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: var(--text-primary);
+            box-shadow: 0 18px 40px rgba(2, 6, 23, 0.6);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 100;
+            pointer-events: none;
         }
         .toast.show {
-            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
-
-        /* סגנון חדש ליצירת חשבון */
-        .account-section {
-            background: rgba(25, 22, 45, 0.65);
-            backdrop-filter: blur(14px);
-            border-radius: 20px;
-            padding: 2.25rem;
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            margin-bottom: 2.5rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+        .install-banner {
+            margin-top: 4rem;
+            border-radius: var(--radius-xl);
+            padding: 2.4rem 2.6rem;
+            background: linear-gradient(130deg, rgba(79, 70, 229, 0.25), rgba(14, 165, 233, 0.18));
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            display: grid;
+            gap: 1.6rem;
+            box-shadow: var(--shadow-md);
         }
-        .account-section-title {
-            font-size: 1.65rem;
-            font-weight: 800;
-            margin-bottom: 1.25rem;
-            background: linear-gradient(90deg, #c4b5fd, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .install-steps {
+            display: grid;
+            gap: 1rem;
         }
-        .account-steps ol {
-            padding-right: 1.75rem;
-            margin: 1.25rem 0;
-            font-size: 1.05rem;
+        .install-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
         }
-        .account-steps li {
-            margin-bottom: 0.85rem;
-            color: #e2e8f0;
+        .step-number {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            display: grid;
+            place-items: center;
+            font-weight: 600;
         }
-        .account-steps a {
-            color: #818cf8;
-            text-decoration: underline;
+        footer {
+            margin-top: 4.5rem;
+            padding: 2.8rem 0 3rem;
+            color: rgba(148, 163, 184, 0.65);
+            font-size: 0.9rem;
+            text-align: center;
         }
-        .account-steps a:hover {
-            color: #c4b5fd;
+        @media (max-width: 960px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 3rem 2.4rem;
+            }
+            .addons-install {
+                padding: 2.2rem 2.2rem;
+            }
+            .addons-install-header {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 720px) {
+            header {
+                padding-top: 1.2rem;
+            }
+            .topbar {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            nav {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .hero {
+                padding: 2.4rem 1.6rem;
+            }
+            .hero-quick-stats {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+            .cta-button {
+                justify-content: center;
+            }
+            .addons-install {
+                padding: 2rem 1.6rem;
+            }
+            .addons-install-instructions {
+                grid-template-columns: 1fr;
+            }
+            .addon-action-buttons {
+                width: 100%;
+            }
+            .addon-action-button {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="section-title">🔌 תוספי Stremio</div>
-
-        <div class="account-section">
-            <h2 class="account-section-title">איך מתחילים? - יצירת חשבון ב-Stremio</h2>
-            <div class="account-steps">
-                <p>Stremio הוא יישום שמאפשר לך לצפות בסרטים, סדרות, ערוצים ותכנים נוספים ממספר מקורות, כולל תוספים שיכולים להרחיב את היכולות שלו. כדי להתחיל, תצטרך להתקין את היישום ולהירשם (אופציונלי).</p>
-                <ol>
-                    <li><strong>הורדה והתקנה:</strong> עבור לאתר הרשמי של Stremio (<a href="https://www.stremio.com/" target="_blank" rel="noopener noreferrer">https://www.stremio.com/</a>) והורד את הגרסה המתאימה למכשיר שלך (Windows, Mac, Linux, Android, iOS, Fire TV, Apple TV וכו').</li>
-                    <li><strong>פתיחה:</strong> לאחר ההתקנה, פתח את היישום.</li>
-                    <li><strong>הרשמה (אופציונלי):</strong> בפעם הראשונה, תתבקש להירשם. רישום אינו חובה לצפייה בסיסית, אך מאפשר סנכרון, רשימת מעקב והתאמות אישיות.</li>
-                    <li><strong>הגדרות ראשוניות:</strong> בחר נושאים לפי העדפות (סרטים, סדרות, מוזיקה, ספורט וכו').</li>
-                    <li><strong>התקנת תוספים:</strong> חזור לדף זה — לחץ על "התקן תוסף" או "העתק קישור" והשתמש ב-Stremio כדי להוסיף את התוספים.</li>
-                </ol>
+    <div class="page-shell">
+        <header>
+            <div class="topbar">
+                <div class="brand">
+                    <div class="brand-logo">S</div>
+                    <div class="brand-name">מרכז ההרחבות של Stremio</div>
+                </div>
+                <nav>
+                    <a href="#features">יכולות</a>
+                    <a href="#addons">הרחבות מובילות</a>
+                    <a href="#install">איך מתחילים</a>
+                </nav>
+                <a class="cta-button" href="#install">התקנה מהירה</a>
             </div>
-        </div>
-
-        <div class="info-banner">
-            <div class="info-banner-content">
-                <p class="info-banner-title">הוראות התקנה</p>
-                <p>1. ודא ש-Stremio רץ ברקע</p>
-                <p>2. לחץ על "התקן" או "העתק קישור" והדבק בתוך Stremio</p>
-                <p>3. אם זה לא עובד — העתק ידנית את הקישור</p>
-            </div>
-        </div>
-
-        <div id="addonsGrid" class="addons-grid"></div>
-
-        <div class="addons-footer">
-            <a class="tg-join-btn" href="https://t.me/stremioedil" target="_blank" rel="noopener noreferrer">
-                <span>הצטרף לקבוצת הטלגרם</span>
-            </a>
-        </div>
+        </header>
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-eyebrow">הדור הבא של צריכת תוכן</div>
+                    <h1 class="hero-title">הכירו את מרכז ההרחבות של <strong>Stremio</strong> עם חוויית סטרימינג מרשימה יותר מאי פעם.</h1>
+                    <p class="hero-text">אספו תכנים מכל הפלטפורמות, גלו שידורים חיים, סדרות וסרטים - וכל זה בעיצוב שמעניק תחושת פרימיום, חכמה ואינטואיטיבית לכל משתמש.</p>
+                    <a class="cta-button" href="#addons">פתחו את ספריית המדיה שלכם</a>
+                    <div class="hero-quick-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">+200</div>
+                            <div class="stat-meta">הרחבות קהילה</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">4K</div>
+                            <div class="stat-meta">תמיכה באיכות צפייה</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">24/7</div>
+                            <div class="stat-meta">עדכונים ותכנים חדשים</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="layout-grid" id="features">
+                <div class="info-panel">
+                    <h2 class="panel-title">מערכת שעובדת בשבילכם</h2>
+                    <p class="panel-subtitle">העיצוב החדש ממקד אתכם בתוכן ומפזר את הבלבול. התקדמו במסע הצפייה בלחיצה אחת, עם חוויית משתמש מפורקת לשלבים ברורים ומסודרים.</p>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">⚡</div>
+                            <div>
+                                <h4>ניווט מהיר ומובן</h4>
+                                <p>סרגלי ניווט חכמים ושפת עיצוב עקבית המאפשרים למצוא כל תוסף או קטגוריה בשניות.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🎯</div>
+                            <div>
+                                <h4>התאמה חכמה לכם</h4>
+                                <p>המלצות דינמיות לפי הרגלי הצפייה שלכם – הצעות לתוכן חדש לפי מה שאתם באמת אוהבים.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🛡️</div>
+                            <div>
+                                <h4>תוכן אמין ומעודכן</h4>
+                                <p>ניטור מתמשך של הרחבות והבטחת קישורים תקינים ושידורים באיכות הגבוהה ביותר.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="addons-showcase" id="addons-overview">
+                    <h2 class="panel-title">הרחבות שמובילות את הקטלוג</h2>
+                    <p class="panel-subtitle">בחרנו את המובחרות מכל הז'אנרים כדי שתגלו במהירות את הלהיטים החמים של עכשיו.</p>
+                    <div class="addons-grid">
+                        <article class="addon-card">
+                            <div class="addon-name">CineVerse Premium</div>
+                            <div class="addon-meta">סרטים חדשים, כתוביות מרובות שפות, איכות HDR</div>
+                            <div class="addon-tag">סרטים • עדכון יומי</div>
+                        </article>
+                        <article class="addon-card">
+                            <div class="addon-name">Series Flow</div>
+                            <div class="addon-meta">סדרות טרנדיות, מעקב אחר פרקים, התראות בזמן אמת</div>
+                            <div class="addon-tag">סדרות • סנכרון ענן</div>
+                        </article>
+                        <article class="addon-card">
+                            <div class="addon-name">LivePulse</div>
+                            <div class="addon-meta">ערוצי ספורט, חדשות ושידורים חיים ב-4K</div>
+                            <div class="addon-tag">לייב • זמינות גלובלית</div>
+                        </article>
+                        <article class="addon-card">
+                            <div class="addon-name">Docs &amp; Chill</div>
+                            <div class="addon-meta">תיעודים, מדע וסדרות ידע מעוררות השראה</div>
+                            <div class="addon-tag">דוקו • קהילה</div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="addons-install" id="addons">
+                <div class="addons-install-header">
+                    <div>
+                        <h2 class="panel-title">הרחבות מוכנות להפעלה מיידית</h2>
+                        <p class="panel-subtitle">כל התוספים העיקריים שחיכיתם להם – התקנה בלחיצה אחת או העתקה מהירה של הקישור ל-Stremio.</p>
+                    </div>
+                    <div class="addons-install-instructions">
+                        <div>
+                            <span class="instruction-step">1</span>
+                            <p>ודאו ש-Stremio פתוח ברקע</p>
+                        </div>
+                        <div>
+                            <span class="instruction-step">2</span>
+                            <p>לחצו על "התקן" או העתיקו את הקישור</p>
+                        </div>
+                        <div>
+                            <span class="instruction-step">3</span>
+                            <p>אשרו את ההתקנה בתוך האפליקציה</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="addonsGrid" class="addons-install-grid" aria-live="polite"></div>
+            </section>
+            <section class="install-banner" id="install">
+                <div>
+                    <h2 class="panel-title">התחלה מהירה בשלושה צעדים</h2>
+                    <p class="panel-subtitle">התקנה והפעלה של Stremio עוד רגע אצלכם. היכנסו, בחרו הרחבות והתחילו להזרים.</p>
+                </div>
+                <div class="install-steps">
+                    <div class="install-step">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h4>הורדה והתקנה</h4>
+                            <p>הורידו את Stremio למחשב או למכשיר האנדרואיד שלכם והתקינו בקלות.</p>
+                        </div>
+                    </div>
+                    <div class="install-step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h4>כניסה לספריית ההרחבות</h4>
+                            <p>פתחו את מרכז ההרחבות החדש, חקרו לפי קטגוריות או חיפוש חכם.</p>
+                        </div>
+                    </div>
+                    <div class="install-step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h4>הפעלת תוכן מותאם</h4>
+                            <p>בחרו את המקורות המועדפים והתחילו להזרים תוכן איכותי עם ממשק מודרני.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <div class="toast" id="toast" role="status" aria-live="assertive"></div>
+        <footer>
+            © 2025 Stremio Addons Hub – חוויית צפייה מעוצבת שמאחדת את כל התוכן במקום אחד.
+        </footer>
     </div>
-
-    <div class="toast" id="toast"></div>
-
     <script>
         const ADDONS = [
             {
@@ -263,7 +722,7 @@
             {
                 name: 'Wizdom Subtitles',
                 url: 'stremio://4b139a4b7f94-wizdom-stremio-v2.baby-beamup.club/manifest.json',
-                description: 'כתוביות עבריות ממאגר ויזדום – איכות וدقت'
+                description: 'כתוביות עבריות ממאגר ויזדום – איכות ודייקנות'
             },
             {
                 name: 'Ktuvit Subtitles',
@@ -284,61 +743,88 @@
 
         function renderAddons() {
             const grid = document.getElementById('addonsGrid');
-            grid.innerHTML = ADDONS.map(addon => `
-                <div class="addon-card">
-                    <div class="addon-name">${addon.name}</div>
-                    <div class="addon-description">${addon.description}</div>
-                    <div style="display:flex;gap:0.85rem;">
-                        <button class="button install" onclick="installAddon('${addon.url}')">
+            if (!grid) {
+                return;
+            }
+
+            grid.innerHTML = ADDONS.map((addon) => `
+                <article class="addon-action-card">
+                    <div>
+                        <div class="addon-action-name">${addon.name}</div>
+                        <p class="addon-action-description">${addon.description}</p>
+                    </div>
+                    <div class="addon-action-buttons">
+                        <button class="addon-action-button install" type="button" data-url="${addon.url}">
                             <span>התקן</span>
                         </button>
-                        <button class="button copy" onclick="copyAddonLink('${addon.url}')">
+                        <button class="addon-action-button copy" type="button" data-url="${addon.url}">
                             <span>העתק קישור</span>
                         </button>
                     </div>
-                </div>
+                </article>
             `).join('');
+
+            grid.querySelectorAll('.addon-action-button.install').forEach((button) => {
+                button.addEventListener('click', () => installAddon(button.dataset.url));
+            });
+
+            grid.querySelectorAll('.addon-action-button.copy').forEach((button) => {
+                button.addEventListener('click', () => copyAddonLink(button.dataset.url));
+            });
         }
 
         function installAddon(url) {
+            if (!url) {
+                return;
+            }
             window.location.href = url;
             setTimeout(() => {
-                showToast('💡 ודא ש-Stremio פתוח ברקע');
-            }, 1000);
+                showToast('💡 ודאו ש-Stremio פתוח ברקע');
+            }, 900);
         }
 
         async function copyAddonLink(url) {
+            if (!url) {
+                return;
+            }
+
             try {
                 await navigator.clipboard.writeText(url);
-                showToast('✅ הועתק! הדבק בתוך Stremio');
-            } catch (err) {
-                const ta = document.createElement('textarea');
-                ta.value = url;
-                ta.style.position = 'fixed';
-                ta.style.left = '-999999px';
-                document.body.appendChild(ta);
-                ta.select();
+                showToast('✅ הקישור הועתק – הדביקו בתוך Stremio');
+            } catch (error) {
+                const textarea = document.createElement('textarea');
+                textarea.value = url;
+                textarea.setAttribute('readonly', '');
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.select();
+
                 try {
                     document.execCommand('copy');
-                    showToast('✅ הועתק! הדבק בתוך Stremio');
-                } catch (e) {
-                    showToast('❌ שגיאה בהעתקה');
+                    showToast('✅ הקישור הועתק – הדביקו בתוך Stremio');
+                } catch (fallbackError) {
+                    showToast('❌ לא הצלחנו להעתיק, נסו ידנית');
                 }
-                document.body.removeChild(ta);
+
+                document.body.removeChild(textarea);
             }
         }
 
         function showToast(message) {
             const toast = document.getElementById('toast');
+            if (!toast) {
+                return;
+            }
+
             toast.textContent = message;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3200);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderAddons();
-        });
+        document.addEventListener('DOMContentLoaded', renderAddons);
     </script>
 </body>
 </html>
-
