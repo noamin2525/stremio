@@ -287,6 +287,54 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.4rem;
         }
+        .addons-install {
+            margin-top: 4rem;
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            border: 1px solid rgba(79, 70, 229, 0.25);
+            background: linear-gradient(160deg, rgba(15, 23, 42, 0.92), rgba(14, 116, 144, 0.2));
+            box-shadow: var(--shadow-md);
+        }
+        .addons-install-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2.2rem;
+        }
+        .addon-install-card {
+            padding: 1.8rem;
+            border-radius: var(--radius-lg);
+            background: rgba(12, 17, 31, 0.85);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+        .addon-install-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        .addon-install-description {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        .addon-install-link {
+            align-self: flex-start;
+            padding: 0.65rem 1.4rem;
+            border-radius: 999px;
+            background: linear-gradient(120deg, rgba(79, 70, 229, 0.9), rgba(59, 130, 246, 0.9));
+            color: #020617;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.25);
+        }
+        .addon-install-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 60px rgba(79, 70, 229, 0.35);
+        }
         .addon-card {
             position: relative;
             padding: 1.6rem 1.4rem;
@@ -522,6 +570,22 @@
                             <p>בחרו את המקורות המועדפים והתחילו להזרים תוכן איכותי עם ממשק מודרני.</p>
                         </div>
                     </div>
+                </div>
+            </section>
+            <section class="addons-install" id="quick-addons">
+                <h2 class="panel-title">הוסיפו הרחבות בלחיצה אחת</h2>
+                <p class="panel-subtitle">השתמשו בקישורים הישירים כדי להוסיף את המקורות הפופולריים האלה לספריית ה-Stremio שלכם בתוך שניות.</p>
+                <div class="addons-install-grid">
+                    <article class="addon-install-card">
+                        <div class="addon-install-name">debridio+RD</div>
+                        <p class="addon-install-description">גישה משולבת ל-DebridIO עם Real-Debrid לצפייה מהירה וחלקה בתכני פרימיום.</p>
+                        <a class="addon-install-link" href="stremio://addon.debridio.com/eyJhcGlfa2V5IjoiZGEwYmUxM2Y0YmI3YWJiOTZkMjA0NDFjOTc0ZDcyZTQiLCJwcm92aWRlciI6InJlYWxkZWJyaWQiLCJwcm92aWRlcktleSI6IllUTFRCRlRKSUZSREhSTzVJM1FPWUZFUktYRDRJWkxZSlM2SUhOM1JORFBNWEJXWkhZU1EiLCJkaXNhYmxlVW5jYWNoZWQiOmZhbHNlLCJtYXhTaXplIjoiIiwibWF4UmV0dXJuUGVyUXVhbGl0eSI6IiIsInJlc29sdXRpb25zIjpbIjRrIiwiMTQ0MHAiLCIxMDgwcCIsIjcyMHAiLCI0ODBwIiwiMzYwcCIsInVua25vd24iXSwiZXhjbHVkZWRRdWFsaXRpZXMiOlsiVGVsZUNpbmUiLCJUZWxlU3luYyIsIlNDUiIsIkNBTSJdfQ==/manifest.json">התקנה מהירה</a>
+                    </article>
+                    <article class="addon-install-card">
+                        <div class="addon-install-name">הכל במקום אחד</div>
+                        <p class="addon-install-description">אוסף ענק של ספריות תוכן מקומיות ובינלאומיות – פתרון מלא להזרמה מרוכזת.</p>
+                        <a class="addon-install-link" href="stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json">התקנה מהירה</a>
+                    </article>
                 </div>
             </section>
         </main>
