@@ -1,244 +1,215 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>אתר דוגמה מודרני</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>הכל במקום אחד - התקנת תוספים לסטרימיו</title>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg: #f6f7fb;
-      --card: #ffffff;
-      --muted: #6b7280;
-      --text: #0f1724;
-      --accent: #6c5ce7;
-      --accent-2: #7b68ee;
-      --glass: rgba(255,255,255,0.6);
+    :root {
+      --bg: #0e0e23;
+      --card: #1a1a32;
+      --accent: #8d4eee;
+      --accent2: #6242c7;
+      --text: #e6e6fa;
+      --muted: #9b9bb5;
       --radius: 12px;
       --container: 1200px;
     }
 
-    /* DARK MODE */
-    @media (prefers-color-scheme: dark){
-      :root{
-        --bg:#0b1220;
-        --card:#0f1724;
-        --text:#e6eef8;
-        --muted:#9aa6b2;
-        --glass: rgba(10,12,20,0.5);
-      }
-    }
-
-    /* Reset & base */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #fbfcff 0%, var(--bg) 100%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    /* Base */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top left, #1c1c3d 0%, var(--bg) 80%);
+      min-height: 100vh;
       direction: rtl;
+      -webkit-font-smoothing: antialiased;
     }
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%;display:block;border-radius:8px}
+    a { color: var(--accent); text-decoration: none; }
 
-    .wrap{
-      max-width:var(--container);
-      margin:0 auto;
-      padding:0 1.25rem;
-    }
-
-    /* Header */
-    header{
-      position:sticky;
-      top:0;
-      z-index:40;
-      backdrop-filter: blur(8px);
-      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.45));
-      box-shadow: 0 6px 20px rgba(16,24,40,0.05);
-    }
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-      padding:0.9rem 0;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:0.75rem;
-      font-weight:700;
-    }
-    .brand .logo{
-      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
-      box-shadow:0 6px 18px rgba(108,92,231,0.18);
-    }
-    nav ul{display:flex;gap:0.75rem;align-items:center;margin:0;padding:0;list-style:none}
-    nav li{font-weight:600;color:var(--muted)}
-
-    /* Mobile nav toggle */
-    .menu-toggle{display:none;border:0;background:none;font-size:20px;padding:8px;border-radius:8px}
-    @media (max-width:840px){
-      nav ul{display:none}
-      .menu-toggle{display:inline-flex}
+    .wrap {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 1rem;
     }
 
-    /* Hero */
-    .hero{
-      display:grid;
-      grid-template-columns:1fr 420px;
-      gap:2rem;
-      align-items:center;
-      padding:4.2rem 0;
+    /* Header & Brand */
+    header {
+      padding: 1rem 0;
     }
-    .hero-card{
-      background:var(--card);
-      border-radius:var(--radius);
-      padding:2rem;
-      box-shadow:0 10px 30px rgba(16,24,40,0.06);
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
-    .eyebrow{color:var(--accent); font-weight:700; margin-bottom:0.6rem}
-    h1{font-size:2.1rem;margin:0 0 0.6rem;line-height:1.07}
-    p.lead{color:var(--muted);margin:0 0 1.2rem}
+    .brand .logo {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(141,78,238,0.4);
+    }
 
-    .cta-group{display:flex;gap:0.75rem;flex-wrap:wrap}
-    .btn{
-      display:inline-flex;align-items:center;gap:0.6rem;padding:0.65rem 1rem;border-radius:12px;border:0;font-weight:700;
-      cursor:pointer;transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s;
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 1rem;
+      gap: 1.2rem;
     }
-    .btn-primary{
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:white;box-shadow:0 8px 24px rgba(108,92,231,0.18);
+    .hero h1 {
+      font-size: 2.2rem;
+      margin: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .btn-ghost{
-      background:transparent;color:var(--text);border:1px solid rgba(15,23,36,0.06);
+    .hero p {
+      max-width: 500px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin: 0;
     }
-    .btn:hover{transform:translateY(-4px)}
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      padding: 0.8rem 1.3rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(141,78,238,0.4);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn:hover {
+      transform: translateY(-4px);
+    }
 
-    /* Features grid */
-    .features{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:1rem;
-      margin-top:1.5rem;
+    /* Features Grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
     }
-    .feature{
-      background: linear-gradient(180deg,var(--glass), rgba(255,255,255,0.3));
-      backdrop-filter: blur(6px);
-      border-radius:12px;padding:1rem;box-shadow:0 6px 18px rgba(16,24,40,0.04);
+    .feature {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      transition: transform .2s, box-shadow .2s;
     }
-    .feature h4{margin:0 0 0.4rem}
-    .feature p{margin:0;color:var(--muted);font-size:0.95rem}
-
-    /* Example cards / content right column */
-    .right-hero{
-      display:flex;flex-direction:column;gap:1rem;
+    .feature:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+    }
+    .feature h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
     /* Footer */
-    footer{padding:3rem 0;color:var(--muted);font-size:0.95rem}
-
-    /* small interactions */
-    .card-hover{transition:transform .22s,box-shadow .22s}
-    .card-hover:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(16,24,40,0.08)}
+    footer {
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
 
     /* Responsive */
-    @media (max-width:1024px){
-      .hero{grid-template-columns:1fr}
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <div class="brand">
-        <div class="logo">נ</div>
-        <div>
-          <div>שם החברה</div>
-          <div style="font-size:12px;color:var(--muted)">תת-כותרת קצרה</div>
-        </div>
+  <header class="wrap">
+    <div class="brand">
+      <div class="logo">ס</div>
+      <div>
+        <div style="font-weight:700;">סטרימיו תוספים</div>
+        <div style="font-size:12px;color:var(--muted);">הכל במקום אחד</div>
       </div>
-
-      <nav>
-        <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">☰</button>
-        <ul id="main-nav" role="menubar">
-          <li><a href="#">בית</a></li>
-          <li><a href="#">שירותים</a></li>
-          <li><a href="#">מחירים</a></li>
-          <li><a href="#">צור קשר</a></li>
-        </ul>
-      </nav>
     </div>
   </header>
 
   <main class="wrap">
     <section class="hero">
-      <div>
-        <div class="hero-card">
-          <div class="eyebrow">חדש</div>
-          <h1>אתר נקי, מודרני ומותאם לקהל דובר עברית</h1>
-          <p class="lead">תיאור קצר ומשכנע — מה שאת מציעה ומה הבעיה שאת פותרת. כפתור קריאה לפעולה ועוד דגשים קצרים.</p>
-          <div class="cta-group">
-            <a class="btn btn-primary" href="#">התחילו עכשוו</a>
-            <a class="btn btn-ghost" href="#">למידע נוסף</a>
-          </div>
-
-          <div class="features" style="margin-top:1.2rem">
-            <div class="feature card-hover">
-              <h4>עיצוב נקי</h4>
-              <p>מרווחים נשימים ושפה ויזואלית אחידה.</p>
-            </div>
-            <div class="feature card-hover">
-              <h4>תגובה מהירה</h4>
-              <p>עבודה מהירה גם במובייל ובדפדפנים ישנים יחסית.</p>
-            </div>
-            <div class="feature card-hover">
-              <h4>נגישות</h4>
-              <p>קונטרסט נכון ואלמנטים קריאים.</p>
-            </div>
-          </div>
-        </div>
+      <h1>הכל במקום אחד</h1>
+      <p>התקן בקלות את התוסף לסטרימיו ונהל את התוכן שלך במקום אחד.</p>
+      <div class="cta-group">
+        <a class="btn btn-primary" href="stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json">התקן עכשוו</a>
+        <button class="btn btn-secondary" onclick="copyLink()">העתק קישור</button>
       </div>
-
-      <aside class="right-hero">
-        <div class="hero-card card-hover">
-          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" alt="דוגמה" style="border-radius:10px">
-          <p style="margin-top:0.8rem;color:var(--muted)">טקסט קצר על היתרונות — ניתן לשים כאן סקירה או דמו של המוצר.</p>
-        </div>
-
-        <div class="hero-card card-hover">
-          <h3 style="margin:0 0 0.6rem">מה שאחרים חושבים</h3>
-          <p style="margin:0;color:var(--muted)">"משוב חיובי קצר ממליץ" — שם הלקוח</p>
-        </div>
-      </aside>
     </section>
 
-    <footer>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
-        <div>© כל הזכויות שמורות • שם החברה</div>
-        <div style="color:var(--muted)">קישורים שימושיים • מדיניות • יצירת קשר</div>
+    <section class="features">
+      <div class="feature">
+        <h3>נוחות מירבית</h3>
+        <p>ניהול תוכן והתקנת תוספים בקליק אחד, בלי מאמץ.</p>
       </div>
-    </footer>
+      <div class="feature">
+        <h3>חוויית צפייה</h3>
+        <p>סטייל מודרני ואחיד המתאים לאפליקציית סטרימיו.</p>
+      </div>
+      <div class="feature">
+        <h3>התאמה אישית</h3>
+        <p>בחר תוספים שמתאימים לך והתחל ליהנות מהתוכן שלך.</p>
+      </div>
+    </section>
   </main>
 
+  <footer>
+    © 2025 כל הזכויות שמורות • פרויקט סטרימיו תוספים
+  </footer>
+
   <script>
-    // ניווט נייד בסיסי
-    const toggle = document.querySelector('.menu-toggle');
-    const nav = document.getElementById('main-nav');
-    toggle?.addEventListener('click',()=>{
-      const open = nav.style.display === 'flex';
-      nav.style.display = open ? 'none' : 'flex';
-      nav.style.flexDirection = 'column';
-      nav.style.gap = '12px';
-      toggle.setAttribute('aria-expanded', String(!open));
-    });
+    // copy link to clipboard
+    function copyLink() {
+      const url = 'stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json';
+      navigator.clipboard.writeText(url).then(function() {
+        alert('הקישור הועתק ללוח!');
+      }, function() {
+        alert('לא ניתן להעתיק את הקישור. נסה שוב.');
+      });
+    }
   </script>
 </body>
 </html>
