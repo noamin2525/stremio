@@ -1,673 +1,244 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>מרכז ההרחבות של Stremio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            color-scheme: dark;
-            --bg-base: #06070f;
-            --bg-panel: rgba(15, 18, 34, 0.75);
-            --bg-panel-strong: rgba(28, 35, 58, 0.85);
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5f5;
-            --accent: #4f46e5;
-            --accent-soft: #818cf8;
-            --accent-hot: #f97316;
-            --radius-xl: 28px;
-            --radius-lg: 20px;
-            --radius-md: 14px;
-            --shadow-lg: 0 30px 100px rgba(15, 23, 42, 0.55);
-            --shadow-md: 0 18px 45px rgba(14, 20, 35, 0.45);
-            --shadow-sm: 0 12px 30px rgba(15, 23, 42, 0.35);
-        }
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-        body {
-            margin: 0;
-            font-family: 'Rubik', 'Alef', 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at 10% 10%, rgba(79, 70, 229, 0.2), transparent 55%),
-                        radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.25), transparent 60%),
-                        linear-gradient(160deg, #05060e 0%, #080a1a 45%, #0b122b 100%);
-            color: var(--text-primary);
-            min-height: 100vh;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(650px circle at 85% 10%, rgba(99, 102, 241, 0.35), transparent 70%);
-            opacity: 0.45;
-            pointer-events: none;
-            mix-blend-mode: screen;
-        }
-        .page-shell {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem 6rem;
-        }
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            padding: 1.75rem 0 0;
-            background: linear-gradient(180deg, rgba(5, 7, 15, 0.95), rgba(5, 7, 15, 0));
-            backdrop-filter: blur(18px);
-        }
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.65rem 1.2rem;
-            border-radius: 999px;
-            background: rgba(9, 12, 22, 0.7);
-            border: 1px solid rgba(129, 140, 248, 0.2);
-            box-shadow: 0 18px 45px rgba(30, 41, 59, 0.45);
-        }
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-        }
-        .brand-logo {
-            width: 44px;
-            height: 44px;
-            border-radius: 16px;
-            background: conic-gradient(from 0deg, #38bdf8, #818cf8, #c084fc, #38bdf8);
-            display: grid;
-            place-items: center;
-            color: #020617;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            box-shadow: 0 16px 40px rgba(99, 102, 241, 0.6);
-        }
-        .brand-name {
-            font-size: 1.35rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        nav {
-            display: flex;
-            gap: 1rem;
-        }
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.45rem 1rem;
-            border-radius: 999px;
-            font-size: 0.95rem;
-            transition: color 0.3s ease, background 0.3s ease;
-        }
-        nav a:hover {
-            color: var(--text-primary);
-            background: rgba(129, 140, 248, 0.16);
-        }
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.85rem 1.6rem;
-            border-radius: 999px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            background: linear-gradient(120deg, #38bdf8, #4f46e5, #f97316);
-            color: #020617;
-            text-decoration: none;
-            box-shadow: 0 25px 65px rgba(79, 70, 229, 0.45);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 35px 80px rgba(129, 140, 248, 0.4);
-        }
-        .cta-button:focus-visible {
-            outline: 2px solid var(--accent-soft);
-            outline-offset: 3px;
-        }
-        main {
-            margin-top: 3.5rem;
-        }
-        .hero {
-            position: relative;
-            border-radius: var(--radius-xl);
-            padding: 3.5rem 3.2rem 3rem;
-            overflow: hidden;
-            border: 1px solid rgba(99, 102, 241, 0.28);
-            background: linear-gradient(140deg, rgba(15, 23, 42, 0.9), rgba(15, 118, 110, 0.18)),
-                        linear-gradient(180deg, rgba(24, 24, 43, 0.8), rgba(24, 24, 43, 0.2));
-            box-shadow: var(--shadow-lg);
-        }
-        .hero::before, .hero::after {
-            content: "";
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(0px);
-            opacity: 0.55;
-            mix-blend-mode: screen;
-        }
-        .hero::before {
-            width: 460px;
-            height: 460px;
-            right: -160px;
-            top: -120px;
-            background: radial-gradient(circle, rgba(79, 70, 229, 0.6), transparent 65%);
-        }
-        .hero::after {
-            width: 480px;
-            height: 480px;
-            left: -180px;
-            bottom: -180px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.55), transparent 70%);
-        }
-        .hero-content {
-            position: relative;
-            max-width: 620px;
-            z-index: 2;
-        }
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.55rem;
-            padding: 0.45rem 0.9rem;
-            border-radius: 999px;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            background: rgba(56, 189, 248, 0.12);
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #bae6fd;
-            margin-bottom: 1.4rem;
-        }
-        .hero-title {
-            font-size: clamp(2.4rem, 4.2vw, 3.6rem);
-            line-height: 1.1;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-        }
-        .hero-title strong {
-            color: transparent;
-            background: linear-gradient(90deg, #22d3ee, #818cf8, #f97316);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-        .hero-text {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.8rem;
-        }
-        .hero-quick-stats {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.2rem;
-            margin-top: 2.6rem;
-        }
-        .stat-card {
-            border-radius: var(--radius-lg);
-            padding: 1.2rem 1.4rem;
-            background: rgba(15, 23, 42, 0.65);
-            border: 1px solid rgba(148, 163, 255, 0.18);
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .stat-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(56, 189, 248, 0.4);
-        }
-        .stat-value {
-            font-size: 1.9rem;
-            font-weight: 600;
-        }
-        .stat-meta {
-            font-size: 0.9rem;
-            color: rgba(226, 232, 240, 0.75);
-        }
-        .layout-grid {
-            margin-top: 4.5rem;
-            display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            gap: 2.5rem;
-            align-items: stretch;
-        }
-        .info-panel {
-            border-radius: var(--radius-xl);
-            padding: 2.6rem;
-            background: linear-gradient(150deg, rgba(15, 23, 42, 0.9), rgba(40, 54, 99, 0.65));
-            border: 1px solid rgba(99, 102, 241, 0.28);
-            box-shadow: var(--shadow-md);
-        }
-        .panel-title {
-            font-size: 1.65rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        .panel-subtitle {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-        .feature-list {
-            display: grid;
-            gap: 1.3rem;
-        }
-        .feature {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 0.85rem;
-            align-items: start;
-        }
-        .feature-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            background: rgba(56, 189, 248, 0.18);
-            display: grid;
-            place-items: center;
-            font-size: 1.35rem;
-        }
-        .feature h4 {
-            margin: 0;
-            font-size: 1.05rem;
-            font-weight: 600;
-        }
-        .feature p {
-            margin: 0.4rem 0 0;
-            color: rgba(226, 232, 240, 0.7);
-            font-size: 0.95rem;
-        }
-        .addons-showcase {
-            display: grid;
-            gap: 1.5rem;
-        }
-        .addons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.4rem;
-        }
-        .addons-install {
-            margin-top: 4rem;
-            border-radius: var(--radius-xl);
-            padding: 3rem;
-            border: 1px solid rgba(79, 70, 229, 0.25);
-            background: linear-gradient(160deg, rgba(15, 23, 42, 0.92), rgba(14, 116, 144, 0.2));
-            box-shadow: var(--shadow-md);
-        }
-        .addons-install-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.8rem;
-            margin-top: 2.2rem;
-        }
-        .addon-install-card {
-            padding: 1.8rem;
-            border-radius: var(--radius-lg);
-            background: rgba(12, 17, 31, 0.85);
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            gap: 1.1rem;
-        }
-        .addon-install-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-        }
-        .addon-install-description {
-            color: var(--text-secondary);
-            margin: 0;
-        }
-        .addon-install-link {
-            align-self: flex-start;
-            padding: 0.65rem 1.4rem;
-            border-radius: 999px;
-            background: linear-gradient(120deg, rgba(79, 70, 229, 0.9), rgba(59, 130, 246, 0.9));
-            color: #020617;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.25);
-        }
-        .addon-install-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 25px 60px rgba(79, 70, 229, 0.35);
-        }
-        .addon-card {
-            position: relative;
-            padding: 1.6rem 1.4rem;
-            border-radius: var(--radius-lg);
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(148, 163, 255, 0.22);
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
-            transition: transform 0.35s ease, border-color 0.35s ease;
-        }
-        .addon-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, rgba(129, 140, 248, 0.18), rgba(14, 165, 233, 0));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .addon-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(56, 189, 248, 0.45);
-        }
-        .addon-card:hover::before {
-            opacity: 1;
-        }
-        .addon-name {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.35rem;
-        }
-        .addon-meta {
-            color: rgba(148, 163, 184, 0.85);
-            font-size: 0.9rem;
-        }
-        .addon-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            margin-top: 0.9rem;
-            padding: 0.4rem 0.75rem;
-            border-radius: 999px;
-            background: rgba(248, 250, 252, 0.08);
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        .install-banner {
-            margin-top: 4rem;
-            border-radius: var(--radius-xl);
-            padding: 2.4rem 2.6rem;
-            background: linear-gradient(130deg, rgba(79, 70, 229, 0.25), rgba(14, 165, 233, 0.18));
-            border: 1px solid rgba(99, 102, 241, 0.4);
-            display: grid;
-            gap: 1.6rem;
-            box-shadow: var(--shadow-md);
-        }
-        .addon-install {
-            border-radius: var(--radius-lg);
-            background: rgba(15, 23, 42, 0.55);
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            padding: 1.8rem 2rem;
-            display: grid;
-            gap: 1.4rem;
-        }
-        .addon-install h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        .addon-install-note {
-            margin: 0;
-            color: rgba(226, 232, 240, 0.75);
-            font-size: 0.95rem;
-        }
-        .addon-install-grid {
-            display: grid;
-            gap: 1.2rem;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
-        .addon-install-card {
-            border-radius: var(--radius-md);
-            padding: 1.2rem 1.4rem;
-            background: rgba(12, 20, 38, 0.6);
-            border: 1px solid rgba(148, 163, 255, 0.2);
-            display: grid;
-            gap: 0.8rem;
-            box-shadow: var(--shadow-sm);
-        }
-        .addon-install-card h4 {
-            margin: 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        .addon-install-card p {
-            margin: 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .addon-install-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1rem;
-            border-radius: 999px;
-            background: linear-gradient(120deg, #38bdf8, #4f46e5);
-            color: #020617;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 16px 35px rgba(79, 70, 229, 0.35);
-        }
-        .addon-install-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 22px 45px rgba(129, 140, 248, 0.35);
-        }
-        .install-steps {
-            display: grid;
-            gap: 1rem;
-        }
-        .install-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-        .step-number {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: rgba(15, 23, 42, 0.55);
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            display: grid;
-            place-items: center;
-            font-weight: 600;
-        }
-        footer {
-            margin-top: 4.5rem;
-            padding: 2.8rem 0 3rem;
-            color: rgba(148, 163, 184, 0.65);
-            font-size: 0.9rem;
-            text-align: center;
-        }
-        @media (max-width: 960px) {
-            .layout-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero {
-                padding: 3rem 2.4rem;
-            }
-        }
-        @media (max-width: 720px) {
-            header {
-                padding-top: 1.2rem;
-            }
-            .topbar {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: stretch;
-            }
-            nav {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            .hero {
-                padding: 2.4rem 1.6rem;
-            }
-            .hero-quick-stats {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            }
-            .cta-button {
-                justify-content: center;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>אתר דוגמה מודרני</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --text: #0f1724;
+      --accent: #6c5ce7;
+      --accent-2: #7b68ee;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 12px;
+      --container: 1200px;
+    }
+
+    /* DARK MODE */
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b1220;
+        --card:#0f1724;
+        --text:#e6eef8;
+        --muted:#9aa6b2;
+        --glass: rgba(10,12,20,0.5);
+      }
+    }
+
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #fbfcff 0%, var(--bg) 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      direction: rtl;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%;display:block;border-radius:8px}
+
+    .wrap{
+      max-width:var(--container);
+      margin:0 auto;
+      padding:0 1.25rem;
+    }
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.45));
+      box-shadow: 0 6px 20px rgba(16,24,40,0.05);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:0.9rem 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:0.75rem;
+      font-weight:700;
+    }
+    .brand .logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+      box-shadow:0 6px 18px rgba(108,92,231,0.18);
+    }
+    nav ul{display:flex;gap:0.75rem;align-items:center;margin:0;padding:0;list-style:none}
+    nav li{font-weight:600;color:var(--muted)}
+
+    /* Mobile nav toggle */
+    .menu-toggle{display:none;border:0;background:none;font-size:20px;padding:8px;border-radius:8px}
+    @media (max-width:840px){
+      nav ul{display:none}
+      .menu-toggle{display:inline-flex}
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:2rem;
+      align-items:center;
+      padding:4.2rem 0;
+    }
+    .hero-card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:2rem;
+      box-shadow:0 10px 30px rgba(16,24,40,0.06);
+    }
+    .eyebrow{color:var(--accent); font-weight:700; margin-bottom:0.6rem}
+    h1{font-size:2.1rem;margin:0 0 0.6rem;line-height:1.07}
+    p.lead{color:var(--muted);margin:0 0 1.2rem}
+
+    .cta-group{display:flex;gap:0.75rem;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:0.6rem;padding:0.65rem 1rem;border-radius:12px;border:0;font-weight:700;
+      cursor:pointer;transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s;
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;box-shadow:0 8px 24px rgba(108,92,231,0.18);
+    }
+    .btn-ghost{
+      background:transparent;color:var(--text);border:1px solid rgba(15,23,36,0.06);
+    }
+    .btn:hover{transform:translateY(-4px)}
+
+    /* Features grid */
+    .features{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1rem;
+      margin-top:1.5rem;
+    }
+    .feature{
+      background: linear-gradient(180deg,var(--glass), rgba(255,255,255,0.3));
+      backdrop-filter: blur(6px);
+      border-radius:12px;padding:1rem;box-shadow:0 6px 18px rgba(16,24,40,0.04);
+    }
+    .feature h4{margin:0 0 0.4rem}
+    .feature p{margin:0;color:var(--muted);font-size:0.95rem}
+
+    /* Example cards / content right column */
+    .right-hero{
+      display:flex;flex-direction:column;gap:1rem;
+    }
+
+    /* Footer */
+    footer{padding:3rem 0;color:var(--muted);font-size:0.95rem}
+
+    /* small interactions */
+    .card-hover{transition:transform .22s,box-shadow .22s}
+    .card-hover:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(16,24,40,0.08)}
+
+    /* Responsive */
+    @media (max-width:1024px){
+      .hero{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-    <div class="page-shell">
-        <header>
-            <div class="topbar">
-                <div class="brand">
-                    <div class="brand-logo">S</div>
-                    <div class="brand-name">מרכז ההרחבות של Stremio</div>
-                </div>
-                <nav>
-                    <a href="#features">יכולות</a>
-                    <a href="#addons">הרחבות מובילות</a>
-                    <a href="#install">איך מתחילים</a>
-                </nav>
-                <a class="cta-button" href="#install">התקנה מהירה</a>
-            </div>
-        </header>
-        <main>
-            <section class="hero">
-                <div class="hero-content">
-                    <div class="hero-eyebrow">הדור הבא של צריכת תוכן</div>
-                    <h1 class="hero-title">הכירו את מרכז ההרחבות של <strong>Stremio</strong> עם חוויית סטרימינג מרשימה יותר מאי פעם.</h1>
-                    <p class="hero-text">אספו תכנים מכל הפלטפורמות, גלו שידורים חיים, סדרות וסרטים - וכל זה בעיצוב שמעניק תחושת פרימיום, חכמה ואינטואיטיבית לכל משתמש.</p>
-                    <a class="cta-button" href="#addons">פתחו את ספריית המדיה שלכם</a>
-                    <div class="hero-quick-stats">
-                        <div class="stat-card">
-                            <div class="stat-value">+200</div>
-                            <div class="stat-meta">הרחבות קהילה</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">4K</div>
-                            <div class="stat-meta">תמיכה באיכות צפייה</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">24/7</div>
-                            <div class="stat-meta">עדכונים ותכנים חדשים</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="layout-grid" id="features">
-                <div class="info-panel">
-                    <h2 class="panel-title">מערכת שעובדת בשבילכם</h2>
-                    <p class="panel-subtitle">העיצוב החדש ממקד אתכם בתוכן ומפזר את הבלבול. התקדמו במסע הצפייה בלחיצה אחת, עם חוויית משתמש מפורקת לשלבים ברורים ומסודרים.</p>
-                    <div class="feature-list">
-                        <div class="feature">
-                            <div class="feature-icon">⚡</div>
-                            <div>
-                                <h4>ניווט מהיר ומובן</h4>
-                                <p>סרגלי ניווט חכמים ושפת עיצוב עקבית המאפשרים למצוא כל תוסף או קטגוריה בשניות.</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">🎯</div>
-                            <div>
-                                <h4>התאמה חכמה לכם</h4>
-                                <p>המלצות דינמיות לפי הרגלי הצפייה שלכם – הצעות לתוכן חדש לפי מה שאתם באמת אוהבים.</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">🛡️</div>
-                            <div>
-                                <h4>תוכן אמין ומעודכן</h4>
-                                <p>ניטור מתמשך של הרחבות והבטחת קישורים תקינים ושידורים באיכות הגבוהה ביותר.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="addons-showcase" id="addons">
-                    <h2 class="panel-title">הרחבות שמובילות את הקטלוג</h2>
-                    <p class="panel-subtitle">בחרנו את המובחרות מכל הז'אנרים כדי שתגלו במהירות את הלהיטים החמים של עכשיו.</p>
-                    <div class="addons-grid">
-                        <article class="addon-card">
-                            <div class="addon-name">CineVerse Premium</div>
-                            <div class="addon-meta">סרטים חדשים, כתוביות מרובות שפות, איכות HDR</div>
-                            <div class="addon-tag">סרטים • עדכון יומי</div>
-                        </article>
-                        <article class="addon-card">
-                            <div class="addon-name">Series Flow</div>
-                            <div class="addon-meta">סדרות טרנדיות, מעקב אחר פרקים, התראות בזמן אמת</div>
-                            <div class="addon-tag">סדרות • סנכרון ענן</div>
-                        </article>
-                        <article class="addon-card">
-                            <div class="addon-name">LivePulse</div>
-                            <div class="addon-meta">ערוצי ספורט, חדשות ושידורים חיים ב-4K</div>
-                            <div class="addon-tag">לייב • זמינות גלובלית</div>
-                        </article>
-                        <article class="addon-card">
-                            <div class="addon-name">Docs &amp; Chill</div>
-                            <div class="addon-meta">תיעודים, מדע וסדרות ידע מעוררות השראה</div>
-                            <div class="addon-tag">דוקו • קהילה</div>
-                        </article>
-                    </div>
-                </div>
-            </section>
-            <section class="install-banner" id="install">
-                <div>
-                    <h2 class="panel-title">התחלה מהירה בשלושה צעדים</h2>
-                    <p class="panel-subtitle">התקנה והפעלה של Stremio עוד רגע אצלכם. היכנסו, בחרו הרחבות והתחילו להזרים.</p>
-                </div>
-                <div class="install-steps">
-                    <div class="install-step">
-                        <div class="step-number">1</div>
-                        <div>
-                            <h4>הורדה והתקנה</h4>
-                            <p>הורידו את Stremio למחשב או למכשיר האנדרואיד שלכם והתקינו בקלות.</p>
-                        </div>
-                    </div>
-                    <div class="install-step">
-                        <div class="step-number">2</div>
-                        <div>
-                            <h4>כניסה לספריית ההרחבות</h4>
-                            <p>פתחו את מרכז ההרחבות החדש, חקרו לפי קטגוריות או חיפוש חכם.</p>
-                        </div>
-                    </div>
-                    <div class="install-step">
-                        <div class="step-number">3</div>
-                        <div>
-                            <h4>הפעלת תוכן מותאם</h4>
-                            <p>בחרו את המקורות המועדפים והתחילו להזרים תוכן איכותי עם ממשק מודרני.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="addon-install">
-                    <h3>תוספים מומלצים להתחלה</h3>
-                    <p class="addon-install-note">הוסיפו את ההרחבות הבאות לספריית Stremio שלכם בלחיצה אחת.</p>
-                    <div class="addon-install-grid">
-                        <div class="addon-install-card">
-                            <h4>debridio+RD</h4>
-                            <p>גישה מהירה למקורות Real-Debrid באיכות גבוהה עם סינון קישורים מתקדם.</p>
-                            <a class="addon-install-button" href="Stremio://addon.debridio.com/eyJhcGlfa2V5IjoiZGEwYmUxM2Y0YmI3YWJiOTZkMjA0NDFjOTc0ZDcyZTQiLCJwcm92aWRlciI6InJlYWxkZWJyaWQiLCJwcm92aWRlcktleSI6IllUTFRCRlRKSUZSREhSTzVJM1FPWUZFUktYRDRJWkxZSlM2SUhOM1JORFBNWEJXWkhZU1EiLCJkaXNhYmxlVW5jYWNoZWQiOmZhbHNlLCJtYXhTaXplIjoiIiwibWF4UmV0dXJuUGVyUXVhbGl0eSI6IiIsInJlc29sdXRpb25zIjpbIjRrIiwiMTQ0MHAiLCIxMDgwcCIsIjcyMHAiLCI0ODBwIiwiMzYwcCIsInVua25vd24iXSwiZXhjbHVkZWRRdWFsaXRpZXMiOlsiVGVsZUNpbmUiLCJUZWxlU3luYyIsIlNDUiIsIkNBTSJdfQ==/manifest.json">התקנת ההרחבה</a>
-                        </div>
-                        <div class="addon-install-card">
-                            <h4>הכל במקום אחד</h4>
-                            <p>מקור AIO Streams עשיר עם ערוצים חיים, סדרות וסרטים מעודכנים בלי מאמץ.</p>
-                            <a class="addon-install-button" href="stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json">התקנת ההרחבה</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="addons-install" id="quick-addons">
-                <h2 class="panel-title">הוסיפו הרחבות בלחיצה אחת</h2>
-                <p class="panel-subtitle">השתמשו בקישורים הישירים כדי להוסיף את המקורות הפופולריים האלה לספריית ה-Stremio שלכם בתוך שניות.</p>
-                <div class="addons-install-grid">
-                    <article class="addon-install-card">
-                        <div class="addon-install-name">debridio+RD</div>
-                        <p class="addon-install-description">גישה משולבת ל-DebridIO עם Real-Debrid לצפייה מהירה וחלקה בתכני פרימיום.</p>
-                        <a class="addon-install-link" href="stremio://addon.debridio.com/eyJhcGlfa2V5IjoiZGEwYmUxM2Y0YmI3YWJiOTZkMjA0NDFjOTc0ZDcyZTQiLCJwcm92aWRlciI6InJlYWxkZWJyaWQiLCJwcm92aWRlcktleSI6IllUTFRCRlRKSUZSREhSTzVJM1FPWUZFUktYRDRJWkxZSlM2SUhOM1JORFBNWEJXWkhZU1EiLCJkaXNhYmxlVW5jYWNoZWQiOmZhbHNlLCJtYXhTaXplIjoiIiwibWF4UmV0dXJuUGVyUXVhbGl0eSI6IiIsInJlc29sdXRpb25zIjpbIjRrIiwiMTQ0MHAiLCIxMDgwcCIsIjcyMHAiLCI0ODBwIiwiMzYwcCIsInVua25vd24iXSwiZXhjbHVkZWRRdWFsaXRpZXMiOlsiVGVsZUNpbmUiLCJUZWxlU3luYyIsIlNDUiIsIkNBTSJdfQ==/manifest.json">התקנה מהירה</a>
-                    </article>
-                    <article class="addon-install-card">
-                        <div class="addon-install-name">הכל במקום אחד</div>
-                        <p class="addon-install-description">אוסף ענק של ספריות תוכן מקומיות ובינלאומיות – פתרון מלא להזרמה מרוכזת.</p>
-                        <a class="addon-install-link" href="stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json">התקנה מהירה</a>
-                    </article>
-                </div>
-            </section>
-        </main>
-        <footer>
-            © 2025 Stremio Addons Hub – חוויית צפייה מעוצבת שמאחדת את כל התוכן במקום אחד.
-        </footer>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">נ</div>
+        <div>
+          <div>שם החברה</div>
+          <div style="font-size:12px;color:var(--muted)">תת-כותרת קצרה</div>
+        </div>
+      </div>
+
+      <nav>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">☰</button>
+        <ul id="main-nav" role="menubar">
+          <li><a href="#">בית</a></li>
+          <li><a href="#">שירותים</a></li>
+          <li><a href="#">מחירים</a></li>
+          <li><a href="#">צור קשר</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="hero-card">
+          <div class="eyebrow">חדש</div>
+          <h1>אתר נקי, מודרני ומותאם לקהל דובר עברית</h1>
+          <p class="lead">תיאור קצר ומשכנע — מה שאת מציעה ומה הבעיה שאת פותרת. כפתור קריאה לפעולה ועוד דגשים קצרים.</p>
+          <div class="cta-group">
+            <a class="btn btn-primary" href="#">התחילו עכשוו</a>
+            <a class="btn btn-ghost" href="#">למידע נוסף</a>
+          </div>
+
+          <div class="features" style="margin-top:1.2rem">
+            <div class="feature card-hover">
+              <h4>עיצוב נקי</h4>
+              <p>מרווחים נשימים ושפה ויזואלית אחידה.</p>
+            </div>
+            <div class="feature card-hover">
+              <h4>תגובה מהירה</h4>
+              <p>עבודה מהירה גם במובייל ובדפדפנים ישנים יחסית.</p>
+            </div>
+            <div class="feature card-hover">
+              <h4>נגישות</h4>
+              <p>קונטרסט נכון ואלמנטים קריאים.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="right-hero">
+        <div class="hero-card card-hover">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" alt="דוגמה" style="border-radius:10px">
+          <p style="margin-top:0.8rem;color:var(--muted)">טקסט קצר על היתרונות — ניתן לשים כאן סקירה או דמו של המוצר.</p>
+        </div>
+
+        <div class="hero-card card-hover">
+          <h3 style="margin:0 0 0.6rem">מה שאחרים חושבים</h3>
+          <p style="margin:0;color:var(--muted)">"משוב חיובי קצר ממליץ" — שם הלקוח</p>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+        <div>© כל הזכויות שמורות • שם החברה</div>
+        <div style="color:var(--muted)">קישורים שימושיים • מדיניות • יצירת קשר</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ניווט נייד בסיסי
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('main-nav');
+    toggle?.addEventListener('click',()=>{
+      const open = nav.style.display === 'flex';
+      nav.style.display = open ? 'none' : 'flex';
+      nav.style.flexDirection = 'column';
+      nav.style.gap = '12px';
+      toggle.setAttribute('aria-expanded', String(!open));
+    });
+  </script>
 </body>
 </html>
