@@ -791,25 +791,35 @@
             try {
                 await navigator.clipboard.writeText(url);
                 showToast('✅ הקישור הועתק – הדביקו בתוך Stremio');
+                return;
             } catch (error) {
                 const textarea = document.createElement('textarea');
                 textarea.value = url;
                 textarea.setAttribute('readonly', '');
                 textarea.style.position = 'fixed';
                 textarea.style.left = '-9999px';
+                textarea.style.top = '0';
+                textarea.style.opacity = '0';
                 document.body.appendChild(textarea);
+
+                textarea.focus();
                 textarea.select();
 
                 try {
-                    document.execCommand('copy');
+                    const successful = document.execCommand('copy');
+                    if (!successful) {
+                        throw new Error('execCommand failed');
+                    }
                     showToast('✅ הקישור הועתק – הדביקו בתוך Stremio');
                 } catch (fallbackError) {
                     showToast('❌ לא הצלחנו להעתיק, נסו ידנית');
+                } finally {
+                    document.body.removeChild(textarea);
                 }
-
-                document.body.removeChild(textarea);
             }
         }
+
+        let toastHideTimeout;
 
         function showToast(message) {
             const toast = document.getElementById('toast');
@@ -819,12 +829,19 @@
 
             toast.textContent = message;
             toast.classList.add('show');
-            setTimeout(() => {
+            if (toastHideTimeout) {
+                clearTimeout(toastHideTimeout);
+            }
+            toastHideTimeout = setTimeout(() => {
                 toast.classList.remove('show');
             }, 3200);
         }
 
-        document.addEventListener('DOMContentLoaded', renderAddons);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', renderAddons);
+        } else {
+            renderAddons();
+        }
     </script>
 </body>
 </html>
