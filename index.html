@@ -315,7 +315,6 @@
       <ol>
        <li>לחץ על הכפתור "צור חשבון" למטה</li>
        <li>הזן כתובת אימייל וסיסמה</li>
-       <li>אשר את האימייל שלך</li>
        <li>התחבר לחשבון שלך באפליקציה או באתר</li>
       </ol>
      </div><button class="guide-btn" onclick="openStremioSignup()">צור חשבון בסטרימיו</button>
@@ -325,18 +324,54 @@
       <div class="guide-icon">
        🎓
       </div>
-      <h2>מדריך למתחילים</h2>
+      <h2>מדריך למתחילים - מחשב</h2>
      </div>
-     <p>חדש בסטרימיו? הנה המדריך המלא להתחלה מהירה!</p>
+     <p>חדש בסטרימיו? הנה המדריך המלא להתחלה מהירה במחשב!</p>
      <div class="guide-steps">
       <ol>
-       <li><strong>הורד את האפליקציה:</strong> הורד את סטרימיו למחשב, טלפון או טאבלט</li>
+       <li><strong>הורד את האפליקציה:</strong> הורד את סטרימיו למחשב</li>
        <li><strong>התחבר לחשבון:</strong> היכנס עם החשבון שיצרת</li>
        <li><strong>התקן תוספים:</strong> לחץ על הכפתורים למטה כדי להתקין תוספים</li>
        <li><strong>חפש תוכן:</strong> חפש סרטים וסדרות שאתה רוצה לצפות בהם</li>
        <li><strong>תהנה מצפייה:</strong> לחץ על הסרט או הפרק והתחל לצפות!</li>
       </ol>
      </div><button class="guide-btn" onclick="openStremioDownload()">הורד את סטרימיו</button>
+    </div>
+    <div class="guide-card">
+     <div class="guide-header">
+      <div class="guide-icon">
+       📱
+      </div>
+      <h2>מדריך למשתמשי טלפון</h2>
+     </div>
+     <p>רוצה להשתמש בסטרימיו בטלפון? הנה איך להתקין תוספים!</p>
+     <div class="guide-steps">
+      <ol>
+       <li><strong>הורד את האפליקציה:</strong> הורד את סטרימיו מה-App Store או Google Play</li>
+       <li><strong>התחבר לחשבון:</strong> היכנס עם החשבון שיצרת</li>
+       <li><strong>התקן תוספים במחשב:</strong> לחץ על הכפתורים למטה במחשב כדי להתקין תוספים</li>
+       <li><strong>התחבר באפליקציה:</strong> התוספים יופיעו אוטומטית באפליקציה בטלפון</li>
+       <li><strong>תהנה מצפייה:</strong> חפש תוכן והתחל לצפות בטלפון!</li>
+      </ol>
+     </div>
+    </div>
+    <div class="guide-card">
+     <div class="guide-header">
+      <div class="guide-icon">
+       📺
+      </div>
+      <h2>מדריך לטלוויזיות חכמות</h2>
+     </div>
+     <p>רוצה לצפות בסטרימיו בטלוויזיה? הנה איך להתקין ולהשתמש!</p>
+     <div class="guide-steps">
+      <ol>
+       <li><strong>הורד את האפליקציה:</strong> חפש "Stremio" בחנות האפליקציות של הטלוויזיה (Android TV, LG, Samsung)</li>
+       <li><strong>התחבר לחשבון:</strong> היכנס עם החשבון שיצרת</li>
+       <li><strong>התקן תוספים במחשב:</strong> לחץ על הכפתורים למטה במחשב כדי להתקין תוספים</li>
+       <li><strong>התחבר באפליקציה:</strong> התוספים יופיעו אוטומטית באפליקציה בטלוויזיה</li>
+       <li><strong>תהנה מצפייה:</strong> חפש תוכן והתחל לצפות על המסך הגדול!</li>
+      </ol>
+     </div>
     </div>
    </div>
    <h2 class="section-title">תוספים מומלצים</h2>
@@ -467,6 +502,16 @@
             showToast('מוריד את סטרימיו...');
         }
 
+        function openMobileGuide() {
+            window.open('https://www.stremio.com/downloads', '_blank', 'noopener,noreferrer');
+            showToast('פותח מדריך הורדה לטלפון...');
+        }
+
+        function openTVGuide() {
+            window.open('https://www.stremio.com/downloads', '_blank', 'noopener,noreferrer');
+            showToast('פותח מדריך הורדה לטלוויזיה...');
+        }
+
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -549,5 +594,5 @@
             });
         }
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99b01c1482e5c21f',t:'MTc2MjU1Mjg5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99b0247f93c1c21f',t:'MTc2MjU1MzIzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
