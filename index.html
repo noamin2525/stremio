@@ -100,6 +100,19 @@
     .btn-secondary:hover {
       background: rgba(255, 255, 255, 0.05);
     }
+    .section-title {
+      text-align: center;
+      margin: 0 auto 2rem;
+      max-width: 520px;
+      color: white;
+    }
+    .section-title span {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -126,6 +139,78 @@
       font-size: 0.9rem;
       color: var(--text-muted);
     }
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 0;
+    }
+    .addon-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .addon-card h3 {
+      margin: 0;
+      color: var(--accent);
+    }
+    .addon-card p {
+      margin: 0;
+      color: var(--text-muted);
+    }
+    .addon-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .addon-actions .btn {
+      flex: 1 1 150px;
+    }
+    .addons-section {
+      margin: 4rem 0;
+    }
+    .addons-rooms {
+      display: grid;
+      gap: 2.5rem;
+    }
+    @media (min-width: 992px) {
+      .addons-rooms {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .addon-room {
+      background: rgba(19, 24, 54, 0.65);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      border: 1px solid rgba(108, 92, 231, 0.15);
+    }
+    .room-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .room-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .room-header h3 {
+      margin: 0;
+      color: white;
+    }
+    .room-header p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
@@ -144,7 +229,7 @@
       <p>גלה את התוסף החדש שיאגד עבורך את כל התוכן במקום אחד ויהפוך את סטרימיו שלך לחוויה מודרנית ומושכת.</p>
       <div class="cta-group">
         <a class="btn btn-primary" href="stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json">התקן עכשיו</a>
-        <button class="btn btn-secondary" onclick="copyLink()">העתק קישור</button>
+        <button class="btn btn-secondary" data-addon="stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json" onclick="copyAddonLink(this)">העתק קישור</button>
       </div>
     </section>
     <section class="features">
@@ -165,6 +250,63 @@
         <p>עיצוב אפל ומלוטש עם צבעי הדגשה סגולים שמשדר סטרימיו בכל רמה.</p>
       </div>
     </section>
+    <section class="addons-section">
+      <div class="section-title">
+        <span>חדרי תוספים</span>
+        <h2>כל מה שצריך לצפייה חלקה בסטרימיו</h2>
+        <p>בחר את החדר המתאים עבורך – תוספי צפייה או כתוביות – והתקן את החבילה המומלצת בלחיצה אחת.</p>
+      </div>
+      <div class="addons-rooms">
+        <div class="addon-room">
+          <div class="room-header">
+            <span class="room-label">תוספי צפייה</span>
+            <h3>מקורות הצפייה המומלצים שלך</h3>
+            <p>אספנו עבורך את התוסף המרכזי שמאגד סרטים, סדרות ושידורים חיים ממקורות איכותיים.</p>
+          </div>
+          <div class="addons-grid">
+            <article class="addon-card">
+              <div>
+                <h3>AIO Streams</h3>
+                <p>קטלוג עשיר ומעודכן של תכני VOD ושידורי לייב עם ממשק נוח ונקי.</p>
+              </div>
+              <div class="addon-actions">
+                <a class="btn btn-primary" href="stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json">התקן תוסף</a>
+                <button class="btn btn-secondary" data-addon="stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json" onclick="copyAddonLink(this)">העתק קישור</button>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="addon-room">
+          <div class="room-header">
+            <span class="room-label">תוספי כתוביות</span>
+            <h3>לא לפספס אף מילה</h3>
+            <p>שדרג את חוויית הצפייה עם כתוביות בעברית ממקורות פעילים ומתעדכנים תדיר.</p>
+          </div>
+          <div class="addons-grid">
+            <article class="addon-card">
+              <div>
+                <h3>Wizdom Subs</h3>
+                <p>מאגר כתוביות מעודכן ומגוון שממשיך להתרחב מדי יום.</p>
+              </div>
+              <div class="addon-actions">
+                <a class="btn btn-primary" href="stremio://4b139a4b7f94-wizdom-stremio-v2.baby-beamup.club/manifest.json">התקן תוסף</a>
+                <button class="btn btn-secondary" data-addon="stremio://4b139a4b7f94-wizdom-stremio-v2.baby-beamup.club/manifest.json" onclick="copyAddonLink(this)">העתק קישור</button>
+              </div>
+            </article>
+            <article class="addon-card">
+              <div>
+                <h3>Ktuvit Subs</h3>
+                <p>כתוביות איכותיות בעברית ממקור אמין עם עדכונים תכופים.</p>
+              </div>
+              <div class="addon-actions">
+                <a class="btn btn-primary" href="stremio://4b139a4b7f94-ktuvit-stremio.baby-beamup.club/manifest.json">התקן תוסף</a>
+                <button class="btn btn-secondary" data-addon="stremio://4b139a4b7f94-ktuvit-stremio.baby-beamup.club/manifest.json" onclick="copyAddonLink(this)">העתק קישור</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
   <footer>
     <!-- Telegram CTA button added to allow joining the user's Telegram group -->
@@ -174,13 +316,14 @@
     © 2025 כל הזכויות שמורות • סטרימיו תוספים
   </footer>
   <script>
-    function copyLink() {
-      const url = 'stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json';
-      navigator.clipboard.writeText(url).then(() => {
-        alert('הקישור הועתק ללוח!');
-      }, () => {
-        alert('אירעה בעיה בהעתקת הקישור.');
-      });
+    function notifyCopy(success) {
+      const message = success ? 'הקישור הועתק ללוח!' : 'אירעה בעיה בהעתקת הקישור.';
+      alert(message);
+    }
+
+    function copyAddonLink(button) {
+      const url = button.getAttribute('data-addon');
+      navigator.clipboard.writeText(url).then(() => notifyCopy(true), () => notifyCopy(false));
     }
   </script>
 </body>
