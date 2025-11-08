@@ -41,7 +41,6 @@
             background-clip: text;
             font-size: 3.5rem;
             margin: 0 0 0.5rem 0;
-            text-shadow: none;
             font-weight: 800;
             letter-spacing: -1px;
         }
@@ -302,12 +301,11 @@
     <h1 id="site-title">תוספים לסטרימיו</h1>
     <p id="site-subtitle">התקן תוספים מומלצים לשדרוג חוויית הצפייה שלך</p>
    </div>
+
    <div class="guides-section">
     <div class="guide-card">
      <div class="guide-header">
-      <div class="guide-icon">
-       👤
-      </div>
+      <div class="guide-icon">👤</div>
       <h2>יצירת חשבון בסטרימיו</h2>
      </div>
      <p>כדי להשתמש בסטרימיו ולהתקין תוספים, תצטרך ליצור חשבון חינמי. זה לוקח רק דקה!</p>
@@ -317,13 +315,13 @@
        <li>הזן כתובת אימייל וסיסמה</li>
        <li>התחבר לחשבון שלך באפליקציה או באתר</li>
       </ol>
-     </div><button class="guide-btn" onclick="openStremioSignup()">צור חשבון בסטרימיו</button>
+     </div>
+     <button class="guide-btn" onclick="openStremioSignup()">צור חשבון בסטרימיו</button>
     </div>
+
     <div class="guide-card">
      <div class="guide-header">
-      <div class="guide-icon">
-       🎓
-      </div>
+      <div class="guide-icon">🎓</div>
       <h2>מדריך למתחילים - מחשב</h2>
      </div>
      <p>חדש בסטרימיו? הנה המדריך המלא להתחלה מהירה במחשב!</p>
@@ -335,13 +333,13 @@
        <li><strong>חפש תוכן:</strong> חפש סרטים וסדרות שאתה רוצה לצפות בהם</li>
        <li><strong>תהנה מצפייה:</strong> לחץ על הסרט או הפרק והתחל לצפות!</li>
       </ol>
-     </div><button class="guide-btn" onclick="openStremioDownload()">הורד את סטרימיו</button>
+     </div>
+     <button class="guide-btn" onclick="openStremioDownload()">הורד את סטרימיו</button>
     </div>
+
     <div class="guide-card">
      <div class="guide-header">
-      <div class="guide-icon">
-       📱
-      </div>
+      <div class="guide-icon">📱</div>
       <h2>מדריך למשתמשי טלפון</h2>
      </div>
      <p>רוצה להשתמש בסטרימיו בטלפון? הנה איך להתקין תוספים!</p>
@@ -355,11 +353,10 @@
       </ol>
      </div>
     </div>
+
     <div class="guide-card">
      <div class="guide-header">
-      <div class="guide-icon">
-       📺
-      </div>
+      <div class="guide-icon">📺</div>
       <h2>מדריך לטלוויזיות חכמות</h2>
      </div>
      <p>רוצה לצפות בסטרימיו בטלוויזיה? הנה איך להתקין ולהשתמש!</p>
@@ -373,36 +370,63 @@
       </ol>
      </div>
     </div>
+
+    <!-- כרטיס הצטרפות לטלגרם - חדש -->
+    <div class="guide-card">
+     <div class="guide-header">
+      <div class="guide-icon">✈️</div>
+      <h2>הצטרפו לקבוצת הטלגרם שלנו</h2>
+     </div>
+     <p>בואו להתעדכן בתוספים, מדריכים וטיפים חמים בקהילה שלנו בטלגרם.</p>
+     <div class="guide-steps">
+      <ol>
+       <li>לחצו על הכפתור למטה</li>
+       <li>אשרו פתיחה של אפליקציית Telegram</li>
+       <li>הצטרפו לקבוצה והתחילו לשאול שאלות!</li>
+      </ol>
+     </div>
+     <button class="guide-btn" onclick="openTelegram()">הצטרפו לטלגרם</button>
+    </div>
+    <!-- סוף כרטיס הטלגרם -->
    </div>
+
    <h2 class="section-title">תוספים מומלצים</h2>
    <div class="addons-grid">
     <div class="addon-card">
-     <div class="addon-icon">
-      📝
-     </div>
+     <div class="addon-icon">📝</div>
      <h3 id="addon1-title">כתוביות - Ktuvit</h3>
-     <p id="addon1-description">תוסף לכתוביות בעברית מבית Ktuvit - המקור המוביל לכתוביות איכותיות</p><button class="install-btn" onclick="installAddon('stremio://4b139a4b7f94-ktuvit-stremio.baby-beamup.club/manifest.json', 'Ktuvit')"> <span id="button-text-1">התקן תוסף</span> </button>
+     <p id="addon1-description">תוסף לכתוביות בעברית מבית Ktuvit - המקור המוביל לכתוביות איכותיות</p>
+     <button class="install-btn" onclick="installAddon('stremio://4b139a4b7f94-ktuvit-stremio.baby-beamup.club/manifest.json', 'Ktuvit')">
+      <span id="button-text-1">התקן תוסף</span>
+     </button>
     </div>
+
     <div class="addon-card">
-     <div class="addon-icon">
-      🎬
-     </div>
+     <div class="addon-icon">🎬</div>
      <h3 id="addon2-title">כתוביות - Wizdom</h3>
-     <p id="addon2-description">תוסף לכתוביות בעברית מבית Wizdom - כתוביות מדויקות ומעודכנות</p><button class="install-btn" onclick="installAddon('stremio://4b139a4b7f94-wizdom-stremio-v2.baby-beamup.club/manifest.json', 'Wizdom')"> <span id="button-text-2">התקן תוסף</span> </button>
+     <p id="addon2-description">תוסף לכתוביות בעברית מבית Wizdom - כתוביות מדויקות ומעודכנות</p>
+     <button class="install-btn" onclick="installAddon('stremio://4b139a4b7f94-wizdom-stremio-v2.baby-beamup.club/manifest.json', 'Wizdom')">
+      <span id="button-text-2">התקן תוסף</span>
+     </button>
     </div>
+
     <div class="addon-card">
-     <div class="addon-icon">
-      🌟
-     </div>
+     <div class="addon-icon">🌟</div>
      <h3 id="addon3-title">הכל במקום אחד - AIO Streams</h3>
-     <p id="addon3-description">תוסף מקיף המרכז מקורות סטרימינג רבים במקום אחד לחוויה מושלמת</p><button class="install-btn" onclick="installAddon('stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json', 'AIO Streams')"> <span id="button-text-3">התקן תוסף</span> </button>
+     <p id="addon3-description">תוסף מקיף המרכז מקורות סטרימינג רבים במקום אחד לחוויה מושלמת</p>
+     <button class="install-btn" onclick="installAddon('stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json', 'AIO Streams')">
+      <span id="button-text-3">התקן תוסף</span>
+     </button>
     </div>
    </div>
+
    <div class="footer">
     <p>💡 לחץ על הכפתור כדי להתקין את התוסף ישירות בסטרימיו</p>
    </div>
   </div>
+
   <div class="toast" id="toast"></div>
+
   <script>
         const defaultConfig = {
             site_title: "תוספים לסטרימיו",
@@ -512,6 +536,12 @@
             showToast('פותח מדריך הורדה לטלוויזיה...');
         }
 
+        // כפתור הטלגרם - חדש
+        function openTelegram() {
+            window.open('https://t.me/stremioedil', '_blank', 'noopener,noreferrer');
+            showToast('פותח את קבוצת הטלגרם...');
+        }
+
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -594,5 +624,5 @@
             });
         }
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99b0247f93c1c21f',t:'MTc2MjU1MzIzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99b0247f93c1c21f',t:'MTc2MjU1MzIzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
