@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🍿 Stremio Addons Hub</title>
+  <title>🍿 Stremio - המרכז לתוספים ומדריכים</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='85' font-size='85' text-anchor='middle' x='50'%3E🍿%3C/text%3E%3C/svg%3E">
   <script src="/_sdk/element_sdk.js"></script>
   <style>
@@ -151,8 +151,8 @@
  <body>
   <div class="container">
    <div class="header">
-    <h1 id="site-title">תוספים לסטרימיו</h1>
-    <p id="site-subtitle">התקינו תוספים מומלצים לשדרוג חוויית הצפייה שלכם</p>
+    <h1 id="site-title">🍿 Stremio - המרכז לתוספים</h1>
+    <p id="site-subtitle">כל התוספים, המדריכים והטיפים שאתם צריכים במקום אחד</p>
    </div>
 
    <div class="guides-section">
@@ -224,6 +224,35 @@
      </div>
     </div>
 
+    <!-- כרטיס סינכרון ושימוש בחשבון -->
+    <div class="guide-card">
+     <div class="guide-header">
+      <div class="guide-icon">🔄</div>
+      <h2>סינכרון תוספים ושימוש בחשבון</h2>
+     </div>
+     <p>למדו כיצד לסנכרן את התוספים בין מכשירים ולהשתמש בחשבון הסטרימיו שלכם בצורה מיטבית.</p>
+     <div class="guide-steps">
+      <ol>
+       <li><strong>הירשמו לחשבון:</strong> צרו חשבון בסטרימיו כדי לשמור את כל המידע שלכם</li>
+       <li><strong>התקינו תוספים:</strong> התקינו את התוספים הרצויים באחד המכשירים (מחשב מומלץ)</li>
+       <li><strong>התחברו בכל המכשירים:</strong> היכנסו לאותו חשבון בטלפון, טלוויזיה ומחשב</li>
+       <li><strong>סינכרון אוטומטי:</strong> התוספים וההגדרות יסתנכרנו אוטומטית בין כל המכשירים</li>
+       <li><strong>המשך צפייה:</strong> התחילו לצפות בסרט במחשב והמשיכו בטלפון - הכל נשמר!</li>
+       <li><strong>רשימות צפייה:</strong> סרטים ששמרתם והיסטוריית צפייה זמינים בכל מקום</li>
+      </ol>
+     </div>
+     <div class="guide-steps" style="background: rgba(34, 158, 217, 0.1); border: 1px solid rgba(34, 158, 217, 0.3);">
+      <p style="color: #e0e7ff; margin: 0 0 1rem 0; font-weight: 600;">💡 <strong>טיפים חשובים:</strong></p>
+      <ul style="color: #e0e7ff; margin: 0; padding-right: 1.5rem; line-height: 1.8;">
+       <li>התחברו לאינטרנט בכל המכשירים לסינכרון מלא</li>
+       <li>התקינו תוספים תמיד דרך המחשב לחוויה הטובה ביותר</li>
+       <li>התוספים יופיעו בכל המכשירים תוך מספר דקות</li>
+       <li>ניתן לנהל את התוספים דרך הגדרות החשבון באתר סטרימיו</li>
+      </ul>
+     </div>
+    </div>
+    <!-- סוף כרטיס סינכרון -->
+
     <!-- כרטיס הצטרפות לטלגרם -->
     <div class="guide-card">
      <div class="guide-header">
@@ -247,9 +276,9 @@
    <div class="addons-grid">
     <div class="addon-card">
      <div class="addon-icon">📝</div>
-     <h3 id="addon1-title">כתוביות - Ktuvit</h3>
-     <p id="addon1-description">תוסף לכתוביות בעברית מבית Ktuvit - המקור המוביל לכתוביות איכותיות</p>
-     <button class="install-btn" onclick="installAddon('stremio://4b139a4b7f94-ktuvit-stremio.baby-beamup.club/manifest.json', 'Ktuvit')">
+     <h3 id="addon1-title">כתוביות - OpenSubtitles</h3>
+     <p id="addon1-description">תוסף כתוביות מקצועי מבית OpenSubtitles - אלפי כתוביות בכל השפות</p>
+     <button class="install-btn" onclick="installAddon('stremio://opensubtitlesv3-pro.dexter21767.com/eyJsYW5ncyI6WyJoZWJyZXciXSwic291cmNlIjoiYWxsIiwiYWlUcmFuc2xhdGVkIjpmYWxzZSwiYXV0b0FkanVzdG1lbnQiOnRydWV9/manifest.json', 'OpenSubtitles')">
       <span id="button-text-1">התקינו תוסף</span>
      </button>
     </div>
@@ -264,11 +293,20 @@
     </div>
 
     <div class="addon-card">
-     <div class="addon-icon">🌟</div>
-     <h3 id="addon3-title">הכל במקום אחד - AIO Streams</h3>
-     <p id="addon3-description">תוסף מקיף המרכז מקורות סטרימינג רבים במקום אחד לחוויה מושלמת</p>
-     <button class="install-btn" onclick="installAddon('stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json', 'AIO Streams')">
+     <div class="addon-icon">📚</div>
+     <h3 id="addon3-title">כתוביות - Ktuvit</h3>
+     <p id="addon3-description">תוסף לכתוביות בעברית מבית Ktuvit - המקור המוביל לכתוביות איכותיות</p>
+     <button class="install-btn" onclick="installAddon('stremio://4b139a4b7f94-ktuvit-stremio.baby-beamup.club/manifest.json', 'Ktuvit')">
       <span id="button-text-3">התקינו תוסף</span>
+     </button>
+    </div>
+
+    <div class="addon-card">
+     <div class="addon-icon">🌟</div>
+     <h3 id="addon4-title">הכל במקום אחד - AIO Streams</h3>
+     <p id="addon4-description">תוסף מקיף המרכז מקורות סטרימינג רבים במקום אחד לחוויה מושלמת</p>
+     <button class="install-btn" onclick="installAddon('stremio://aiostreams.elfhosted.com/stremio/608be4f6-af40-4011-9fb8-ef675ac377dd/eyJpdiI6Ik9wNUVseXdyakppaVdEMjBOc1Rwanc9PSIsImVuY3J5cHRlZCI6InpzZU1IZ2FWVFd6NkMwdSttcDBSTWw4TmUxWVcrRjcvYyt0SGpGSjVkYU09IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json', 'AIO Streams')">
+      <span id="button-text-4">התקינו תוסף</span>
      </button>
     </div>
    </div>
@@ -287,14 +325,16 @@
 
   <script>
         const defaultConfig = {
-            site_title: "תוספים לסטרימיו",
-            site_subtitle: "התקינו תוספים מומלצים לשדרוג חוויית הצפייה שלכם",
-            addon1_title: "כתוביות - Ktuvit",
-            addon1_description: "תוסף לכתוביות בעברית מבית Ktuvit - המקור המוביל לכתוביות איכותיות",
+            site_title: "🍿 Stremio - המרכז לתוספים",
+            site_subtitle: "כל התוספים, המדריכים והטיפים שאתם צריכים במקום אחד",
+            addon1_title: "כתוביות - OpenSubtitles",
+            addon1_description: "תוסף כתוביות מקצועי מבית OpenSubtitles - אלפי כתוביות בכל השפות",
             addon2_title: "כתוביות - Wizdom",
             addon2_description: "תוסף לכתוביות בעברית מבית Wizdom - כתוביות מדויקות ומעודכנות",
-            addon3_title: "הכל במקום אחד - AIO Streams",
-            addon3_description: "תוסף מקיף המרכז מקורות סטרימינג רבים במקום אחד לחוויה מושלמת",
+            addon3_title: "כתוביות - Ktuvit",
+            addon3_description: "תוסף לכתוביות בעברית מבית Ktuvit - המקור המוביל לכתוביות איכותיות",
+            addon4_title: "הכל במקום אחד - AIO Streams",
+            addon4_description: "תוסף מקיף המרכז מקורות סטרימינג רבים במקום אחד לחוויה מושלמת",
             button_text: "התקינו תוסף",
             background_color: "#1a1a2e",
             card_color: "rgba(124, 58, 237, 0.1)",
@@ -345,10 +385,19 @@
             document.getElementById('addon3-description').style.fontSize = `${baseSize}px`;
             document.getElementById('addon3-description').style.fontFamily = `${customFont}, ${baseFontStack}`;
 
+            document.getElementById('addon4-title').textContent = config.addon4_title || defaultConfig.addon4_title;
+            document.getElementById('addon4-title').style.fontSize = `${baseSize * 1.5}px`;
+            document.getElementById('addon4-title').style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+            document.getElementById('addon4-description').textContent = config.addon4_description || defaultConfig.addon4_description;
+            document.getElementById('addon4-description').style.fontSize = `${baseSize}px`;
+            document.getElementById('addon4-description').style.fontFamily = `${customFont}, ${baseFontStack}`;
+
             const buttonText = config.button_text || defaultConfig.button_text;
             document.getElementById('button-text-1').textContent = buttonText;
             document.getElementById('button-text-2').textContent = buttonText;
             document.getElementById('button-text-3').textContent = buttonText;
+            document.getElementById('button-text-4').textContent = buttonText;
 
             const buttons = document.querySelectorAll('.install-btn');
             buttons.forEach(btn => {
@@ -432,6 +481,8 @@
                     ["addon2_description", config.addon2_description || defaultConfig.addon2_description],
                     ["addon3_title", config.addon3_title || defaultConfig.addon3_title],
                     ["addon3_description", config.addon3_description || defaultConfig.addon3_description],
+                    ["addon4_title", config.addon4_title || defaultConfig.addon4_title],
+                    ["addon4_description", config.addon4_description || defaultConfig.addon4_description],
                     ["button_text", config.button_text || defaultConfig.button_text]
                 ])
             });
