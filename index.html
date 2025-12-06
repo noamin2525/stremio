@@ -3,114 +3,508 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="התקנת תוסף AIOStreams לסטרימיו - תוסף מקיף עם זרימות איכותיות, תמיכה ב-Debrid, אנימה, סדרות וסרטים">
+    <meta name="keywords" content="Stremio, AIOStreams, תוסף, סטרימיו, סרטים, סדרות, אנימה">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AIOStreams | התקנת תוסף לסטרימיו">
+    <meta property="og:description" content="תוסף מקיף לסטרימיו עם זרימות איכותיות, תמיכה ב-Debrid, אנימה, סדרות וסרטים">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="AIOStreams | התקנת תוסף לסטרימיו">
+    <meta property="twitter:description" content="תוסף מקיף לסטרימיו עם זרימות איכותיות, תמיכה ב-Debrid, אנימה, סדרות וסרטים">
+    
     <title>AIOStreams | התקנת תוסף לסטרימיו</title>
+    
     <style>
+        :root {
+            --primary-color: #00ff9d;
+            --primary-hover: #00cc7a;
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --warning-bg: #330d0d;
+            --warning-border: #ff4444;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0f0f1a;
-            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
             line-height: 1.6;
             padding: 20px;
-            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
+
         .container {
             max-width: 800px;
             margin: 30px auto;
-            background: #1a1a2e;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px var(--shadow);
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease-in;
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         h1 {
-            color: #00ff9d;
+            color: var(--primary-color);
             text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
         }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
         .link-box {
-            background: #16213e;
-            padding: 15px;
-            border-radius: 10px;
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
             word-break: break-all;
             margin: 20px 0;
             font-size: 14px;
+            font-family: 'Courier New', monospace;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
         }
+
+        .link-box:hover {
+            border-color: var(--primary-color);
+            background: rgba(0, 255, 157, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.1);
+        }
+
+        .link-box::after {
+            content: '📋';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .link-box:hover::after {
+            opacity: 0.6;
+        }
+
         .copy-btn {
-            background: #00ff9d;
+            background: linear-gradient(135deg, var(--primary-color), #00cc7a);
             color: #000;
             border: none;
-            padding: 12px 20px;
-            font-size: 16px;
+            padding: 15px 30px;
+            font-size: 18px;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            margin: 15px 0;
+            margin: 20px 0;
             display: block;
             width: 100%;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 255, 157, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-        .copy-btn:hover { background: #00cc7a; }
+
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 157, 0.4);
+        }
+
+        .copy-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .copy-btn:focus {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 3px;
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
         ol {
-            background: #16213e;
-            padding: 20px 40px;
-            border-radius: 10px;
+            background: var(--bg-secondary);
+            padding: 25px 45px;
+            border-radius: 12px;
             margin: 20px 0;
+            line-height: 2;
         }
+
+        ol li {
+            margin: 12px 0;
+            transition: var(--transition);
+            padding: 5px;
+        }
+
+        ol li:hover {
+            background: rgba(0, 255, 157, 0.05);
+            border-radius: 8px;
+            padding-right: 10px;
+        }
+
+        ol li strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
         .warning {
-            background: #330d0d;
-            border-left: 5px solid #ff4444;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
+            background: var(--warning-bg);
+            border-right: 5px solid var(--warning-border);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px 0 0 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(255, 68, 68, 0);
+            }
+        }
+
+        .warning strong {
+            color: var(--warning-border);
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-secondary);
+        }
+
+        .platforms {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .platform-tag {
+            background: var(--bg-secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            border: 1px solid var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .platform-tag:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            font-weight: 600;
+            font-size: 16px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast::before {
+            content: '✓';
+            margin-left: 10px;
+            font-size: 20px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 25px;
+                margin: 15px auto;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .copy-btn {
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+
+            ol {
+                padding: 20px 30px;
+            }
+
+            .toast {
+                right: 20px;
+                bottom: 20px;
+                left: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Loading state */
+        .copy-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .copy-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            right: 20px;
+            margin-top: -10px;
+            border: 3px solid transparent;
+            border-top-color: #000;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <main class="container">
         <h1>AIOStreams | noamin25 v2.17.5</h1>
-        <p style="text-align:center;">תוסף מקיף לסטרימיו עם זרימות איכותיות, תמיכה ב-Debrid, אנימה, סדרות וסרטים</p>
-
-        <h2>קישור ההתקנה (manifest):</h2>
-        <div class="link-box" id="manifestLink">
-            https://noamin25-aiostreams.elfhosted.com/stremio/a9b22ed7-e337-4471-9480-a66f64f3941b/eyJpdiI6InBlcmhrOHFKY0RpdWgrQmZpb0hMM3c9PSIsImVuY3J5cHRlZCI6ImxkZDJ0dmo4cWQrV1VCck96bUhjVURKRlBLQzFEMWpHYjBhczBYcnNmYnM9IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json
-        </div>
-
-        <button class="copy-btn" onclick="copyLink()">
-            📋 העתק קישור להתקנה
-        </button>
-
-        <h2>איך מתקינים (הכי פשוט שיש):</h2>
-        <ol>
-            <li>פתח את אפליקציית <strong>Stremio</strong> (בטלפון, מחשב או טלוויזיה)</li>
-            <li>לך ל-<strong>Add-ons</strong> (תוספים) ← סמל גלגל שיניים למעלה ימינה</li>
-            <li>לחץ על שורת החיפוש למעלה</li>
-            <li><strong>הדבק</strong> את הקישור שהעתקת למעלה (הדבקה ארוכה בטלפון)</li>
-            <li>לחץ Enter → יופיע התוסף → לחץ <strong>Install</strong></li>
-            <li>זהו! התוסף מותקן. תוכל לראות זרימות חדשות מיד</li>
-        </ol>
-
-        <div class="warning">
-            <strong>שימו לב:</strong> תוספים חיצוניים הם באחריות המשתמש. מומלץ להשתמש ב-VPN ולהזרים רק תוכן חוקי.
-        </div>
-
-        <p style="text-align:center; color:#888; font-size:14px;">
-            עובד על כל הגרסאות: אנדרואיד, iOS, Windows, Mac, Linux, Android TV
+        <p class="subtitle">
+            תוסף מקיף לסטרימיו עם זרימות איכותיות, תמיכה ב-Debrid, אנימה, סדרות וסרטים
         </p>
-    </div>
+
+        <section>
+            <h2>קישור ההתקנה (manifest):</h2>
+            <div 
+                class="link-box" 
+                id="manifestLink" 
+                onclick="copyLink()"
+                role="button"
+                tabindex="0"
+                aria-label="לחץ כדי להעתיק את קישור ההתקנה"
+                onkeypress="if(event.key === 'Enter') copyLink()"
+            >https://noamin25-aiostreams.elfhosted.com/stremio/a9b22ed7-e337-4471-9480-a66f64f3941b/eyJpdiI6InBlcmhrOHFKY0RpdWgrQmZpb0hMM3c9PSIsImVuY3J5cHRlZCI6ImxkZDJ0dmo4cWQrV1VCck96bUhjVURKRlBLQzFEMWpHYjBhczBYcnNmYnM9IiwidHlwZSI6ImFpb0VuY3J5cHQifQ/manifest.json</div>
+
+            <button 
+                class="copy-btn" 
+                id="copyBtn"
+                onclick="copyLink()"
+                aria-label="העתק קישור להתקנה"
+            >
+                <span id="btnText">📋 העתק קישור להתקנה</span>
+            </button>
+        </section>
+
+        <section>
+            <h2>איך מתקינים (הכי פשוט שיש):</h2>
+            <ol>
+                <li>פתח את אפליקציית <strong>Stremio</strong> (בטלפון, מחשב או טלוויזיה)</li>
+                <li>לך ל-<strong>Add-ons</strong> (תוספים) ← סמל גלגל שיניים למעלה ימינה</li>
+                <li>לחץ על שורת החיפוש למעלה</li>
+                <li><strong>הדבק</strong> את הקישור שהעתקת למעלה (הדבקה ארוכה בטלפון)</li>
+                <li>לחץ Enter → יופיע התוסף → לחץ <strong>Install</strong></li>
+                <li>זהו! התוסף מותקן. תוכל לראות זרימות חדשות מיד</li>
+            </ol>
+        </section>
+
+        <aside class="warning" role="alert">
+            <strong>⚠️ שימו לב:</strong> תוספים חיצוניים הם באחריות המשתמש. מומלץ להשתמש ב-VPN ולהזרים רק תוכן חוקי.
+        </aside>
+
+        <footer class="footer">
+            <p><strong>עובד על כל הפלטפורמות:</strong></p>
+            <div class="platforms">
+                <span class="platform-tag">🤖 Android</span>
+                <span class="platform-tag">🍎 iOS</span>
+                <span class="platform-tag">🪟 Windows</span>
+                <span class="platform-tag">🍏 Mac</span>
+                <span class="platform-tag">🐧 Linux</span>
+                <span class="platform-tag">📺 Android TV</span>
+            </div>
+        </footer>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script>
-        function copyLink() {
-            const link = document.getElementById("manifestLink").innerText;
-            navigator.clipboard.writeText(link).then(() => {
-                alert("✓ הקישור הועתק בהצלחה!");
-            }).catch(() => {
-                // גיבוי למכשירים ישנים
-                const textarea = document.createElement("textarea");
-                textarea.value = link;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand("copy");
-                document.body.removeChild(textarea);
-                alert("✓ הקישור הועתק!");
-            });
+        let copyTimeout = null;
+
+        async function copyLink() {
+            const linkElement = document.getElementById('manifestLink');
+            const button = document.getElementById('copyBtn');
+            const btnText = document.getElementById('btnText');
+            const link = linkElement.innerText.trim();
+
+            button.classList.add('loading');
+            btnText.textContent = '⏳ מעתיק...';
+
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(link);
+                } else {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = link;
+                    textarea.style.position = 'fixed';
+                    textarea.style.left = '-9999px';
+                    textarea.setAttribute('readonly', '');
+                    document.body.appendChild(textarea);
+                    
+                    const selection = document.getSelection();
+                    const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+                    
+                    textarea.select();
+                    textarea.setSelectionRange(0, link.length);
+                    
+                    const success = document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    
+                    if (selected) {
+                        selection.removeAllRanges();
+                        selection.addRange(selected);
+                    }
+                    
+                    if (!success) {
+                        throw new Error('Copy command failed');
+                    }
+                }
+
+                button.classList.remove('loading');
+                button.classList.add('copied');
+                btnText.textContent = '✓ הועתק בהצלחה!';
+                
+                showToast('הקישור הועתק בהצלחה! 🎉');
+
+                if (copyTimeout) clearTimeout(copyTimeout);
+                copyTimeout = setTimeout(() => {
+                    button.classList.remove('copied');
+                    btnText.textContent = '📋 העתק קישור להתקנה';
+                }, 3000);
+
+            } catch (error) {
+                console.error('Copy failed:', error);
+                button.classList.remove('loading');
+                btnText.textContent = '❌ שגיאה בהעתקה';
+                
+                showToast('שגיאה בהעתקה. אנא נסה שוב.', true);
+
+                setTimeout(() => {
+                    btnText.textContent = '📋 העתק קישור להתקנה';
+                }, 2000);
+            }
         }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            
+            if (isError) {
+                toast.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+            } else {
+                toast.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+                const selection = window.getSelection().toString();
+                if (!selection) {
+                    event.preventDefault();
+                    copyLink();
+                }
+            }
+        });
     </script>
 </body>
 </html>
