@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>סטרימיו ישראל - מדריך הגדרת תוספים</title>
+    <link rel="icon" type="image/png" href="https://www.stremio.com/website/stremio-logo-small.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Heebo', 'sans-serif'] },
+            animation: { 
+                fadeIn: 'fadeIn 0.6s ease-out forwards',
+                slideUp: 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+            },
+            keyframes: {
+              fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+              slideUp: { '0%': { transform: 'translateY(40px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body { background-color: #141414; color: white; overflow-x: hidden; }
+      .addon-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .addon-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: #7B5AF3;
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      }
+      .glow-purple { box-shadow: 0 0 30px rgba(123, 90, 243, 0.2); }
+      @keyframes ripple {
+        0% { box-shadow: 0 0 0 0 rgba(123, 90, 243, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(123, 90, 243, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(123, 90, 243, 0); }
+      }
+      .animate-ripple { animation: ripple 2s infinite; }
+    </style>
+</head>
+<body class="font-sans min-h-screen selection:bg-[#7B5AF3] selection:text-white">
+    <nav class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-2xl border-b border-white/5 h-16 md:h-24 flex items-center transition-all">
+        <div class="max-w-[1400px] mx-auto px-6 md:px-12 w-full flex items-center justify-between">
+            <a href="/" class="flex items-center gap-4 group">
+                <img src="https://www.stremio.com/website/stremio-logo-small.png" class="w-12 h-12 group-hover:scale-110 transition-transform duration-500" />
+                <h1 class="text-2xl md:text-3xl font-black tracking-tighter">סטרימיו <span class="text-[#7B5AF3]">ישראל</span></h1>
+            </a>
+            <a href="/" class="flex items-center gap-2 text-gray-400 hover:text-white font-black transition-all bg-white/5 px-6 py-3 rounded-2xl border border-white/5 hover:border-white/10">
+                <svg class="w-5 h-5 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
+                חזרה לסרטים
+            </a>
+        </div>
+    </nav>
+    <main class="pt-40 pb-32 px-6 max-w-[1400px] mx-auto">
+        <div class="text-center mb-24 animate-fadeIn">
+            <div class="inline-block bg-[#7B5AF3]/10 text-[#7B5AF3] text-xs font-black px-4 py-2 rounded-full mb-8 uppercase tracking-widest border border-[#7B5AF3]/20">מדריך התקנה מהיר</div>
+            <h2 class="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight">הופכים את סטרימיו <br/><span class="text-[#7B5AF3]">למפלצת תוכן</span></h2>
+            <p class="text-gray-400 text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto font-light">בצעו את 3 השלבים הבאים לפי הסדר כדי לפתוח את כל הסרטים והסדרות בעולם עם תרגום לעברית.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div class="addon-card p-12 rounded-[50px] animate-slideUp" style="animation-delay: 100ms">
+                <div class="w-16 h-16 bg-[#7B5AF3] rounded-3xl flex items-center justify-center text-3xl font-black mb-10 glow-purple">1</div>
+                <h3 class="text-3xl font-black mb-6">חיפוש בעברית</h3>
+                <p class="text-gray-400 text-lg leading-relaxed mb-10">התוסף הרשמי (TMDB) המאפשר לכם לחפש כותרים בשמותיהם בעברית ולקבל את כל המידע והתקצירים בשפה שלנו.</p>
+                <a href="stremio://94c8cb9f702d-tmdb-addon.baby-beamup.club/N4IgTgDgJgRgsgUygSwIYBUCeEEGcQBcoEA9rgC4JiHlgCuCANCADYkDmJhAZqi7kxAxUAYwDWUMCQg8+AgL7MWqAHbs6qdgkIgAFggC0ASQAyIZhTAJUAW2RrCAbQC6zEanJ8O+Ao9DIoHXIbWAA6cmlzEHJsbQIQGxIAN2RtZhVbOJAABWk6ZWoLXRIAdyMVAAkSGzjaBkV-QPjgsIiZZhicHQEwVPx0zJ1ciHzUQpBcYrLK6tr6BAaQAKCQmFDMa3HOrMSUtJAMmp0ATU2oydLyqqOCOoXGRpWwjbGo7e6qPqjDrNPXosuMxud0Wy2aq1CyjUG1iOl2qW+g3iJlU6k0+wu02uc3qDyWTWiEKhGNhHXh8R6XwGNxAaOhmPOUyusxo81BRJaa1oCBUKAcFK68UR+x+OnQVn59nYzMBuPZ+Me4NaUoFsqFWWpeGRdMlfPVcpxbNuHNcIHcFAAwiQ6CpyIQAKwAkoAQS0ACUPDLygBxPlWHzReZRPmoGAsBDuhBe8gynS8fhYqb r4MygDqyHIuiMqzTDniiYEIHkQA/manifest.json" class="block w-full text-center bg-[#7B5AF3] py-5 rounded-3xl font-black text-xl hover:scale-105 transition-all shadow-2xl animate-ripple">התקן תוסף חיפוש</a>
+            </div>
+            <div class="addon-card p-12 rounded-[50px] animate-slideUp" style="animation-delay: 200ms">
+                <div class="w-16 h-16 bg-[#7B5AF3] rounded-3xl flex items-center justify-center text-3xl font-black mb-10 glow-purple">2</div>
+                <h3 class="text-3xl font-black mb-6">תרגום מובנה</h3>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed">אל תתפשרו - התקינו את שני התוספים האלו כדי לוודא שתמיד יהיו לכם כתוביות בעברית מסונכרנות לכל סרט.</p>
+                <div class="space-y-4">
+                    <a href="stremio://4b139a4b7f94-wizdom-stremio-v2.baby-beamup.club/manifest.json" class="flex justify-between items-center p-6 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 transition-all font-black group"><span class="text-lg">כתוביות Wizdom</span><span class="text-[#7B5AF3] group-hover:translate-x-[-4px] transition-transform">התקן</span></a>
+                    <a href="stremio://stremio7rd-hebrew-telegram-subtitles.vercel.app/manifest.json" class="flex justify-between items-center p-6 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 transition-all font-black group"><span class="text-lg">כתוביות טלגרם</span><span class="text-[#7B5AF3] group-hover:translate-x-[-4px] transition-transform">התקן</span></a>
+                </div>
+            </div>
+            <div class="addon-card p-12 rounded-[50px] animate-slideUp border-red-900/20" style="animation-delay: 300ms">
+                <div class="w-16 h-16 bg-red-600 rounded-3xl flex items-center justify-center text-3xl font-black mb-10 shadow-2xl">3</div>
+                <h3 class="text-3xl font-black mb-6">שרת הצפייה</h3>
+                <p class="text-gray-400 text-lg mb-10 leading-relaxed">הלב של המערכת. התוסף הזה מוצא את מקורות השידור באיכות 4K/1080p מכל רחבי הרשת בחינם.</p>
+                <a href="stremio://mediafusion.elfhosted.com/D-voUXXKiHAtywGy3SpwIzYNmEAa_y3eRZeFAYiMgno_84_jA8W79aXeJkFzfnqUbuuL2qdQ1ECMk791py4ncQNqc68x65hmxZuHPZC5lIv-S82f154M4fwNgSM-iRQOP22Jax1pjpVwNLCdHWOF1ZSmzV69Vx7M3pIzEijATAyCi579OY5_QCFeDs_quwr4HcOyQc7LARkzx7pC9SPHtshNvmzqJNSrlw4E7YIrJFySeRnVnXGj2Dzsx52_3iMjDuoKjIa40lIOnJxsWkt4FVsKOdUFy73T4NI0UU0cNgegg/manifest.json" class="block w-full text-center bg-red-600 py-5 rounded-3xl font-black text-xl hover:bg-red-700 hover:scale-105 transition-all shadow-2xl">התקן שרת סרטים</a>
+            </div>
+        </div>
+        <div class="mt-32 text-center animate-fadeIn">
+            <div class="bg-gradient-to-r from-[#7B5AF3]/20 via-transparent to-red-600/10 p-16 rounded-[60px] border border-white/5 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h4 class="text-4xl md:text-5xl font-black mb-6">מוכנים לצפייה?</h4>
+                    <p class="text-gray-400 text-xl mb-12 max-w-2xl mx-auto font-light">אחרי שהתקנתם את שלושת הצעדים, אתם מסודרים לכל החיים.</p>
+                    <a href="/" class="inline-block bg-white text-black px-16 py-6 rounded-[30px] font-black text-2xl hover:scale-110 transition-transform shadow-3xl">חזרה לקטלוג</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="py-20 border-t border-white/5 text-center text-gray-600"><p class="font-bold">סטרימיו ישראל &copy; 2024</p></footer>
+</body>
+</html>
