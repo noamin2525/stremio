@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>סטרימיו ישראל - המלצות וצפייה</title>
+    <link rel="icon" type="image/png" href="https://www.stremio.com/website/stremio-logo-small.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Heebo', 'sans-serif'] },
+            animation: { 
+                fadeIn: 'fadeIn 0.4s ease-out forwards',
+                slideUp: 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                scaleUp: 'scaleUp 0.5s ease-out forwards'
+            },
+            keyframes: {
+              fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+              slideUp: { '0%': { transform: 'translateY(30px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+              scaleUp: { '0%': { transform: 'scale(0.95)', opacity: '0' }, '100%': { transform: 'scale(1)', opacity: '1' } }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #141414; }
+      ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #7B5AF3; }
+      body { background-color: #141414; color: white; overflow-x: hidden; scroll-behavior: smooth; }
+      
+      .movie-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .movie-card:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: #7B5AF3;
+        transform: translateY(-5px);
+      }
+
+      .detail-backdrop-mask {
+        mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+      }
+
+      @keyframes ripple {
+        0% { box-shadow: 0 0 0 0 rgba(123, 90, 243, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(123, 90, 243, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(123, 90, 243, 0); }
+      }
+      .animate-ripple { animation: ripple 2s infinite; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-[#141414] text-white font-sans min-h-screen">
+
+    <nav id="navbar" class="fixed top-0 w-full z-50 bg-gradient-to-b from-black/90 to-transparent transition-all duration-500 h-16 md:h-20 flex items-center">
+        <div class="max-w-[1600px] mx-auto px-4 md:px-8 w-full flex items-center justify-between">
+            <a href="/" onclick="app.navigateHome(event)" class="flex items-center gap-3 group">
+                <img src="https://www.stremio.com/website/stremio-logo-small.png" alt="Stremio" class="w-10 h-10 group-hover:scale-110 transition-transform" />
+                <h1 class="text-xl md:text-2xl font-black text-white">סטרימיו <span class="text-[#7B5AF3]">ישראל</span></h1>
+            </a>
+            <div class="flex items-center gap-4">
+                <!-- הכתובת הופנתה ל-stremioil.com/addons בחלון חדש -->
+                <a href="https://stremioil.com/addons" target="_blank" class="animate-ripple bg-[#7B5AF3] hover:bg-[#6a4ce0] text-white px-5 md:px-7 py-2 rounded-full transition-all text-sm font-black shadow-xl">
+                    מדריך הגדרה
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="view-container">
+        <section id="home-view" class="block animate-fadeIn">
+            <header id="hero" class="relative h-[85vh] w-full hidden overflow-hidden">
+                <div class="absolute inset-0">
+                    <img id="hero-bg" src="" class="w-full h-full object-cover object-top opacity-0 transition-opacity duration-1000" />
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/40 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
+                </div>
+                <div class="absolute inset-0 flex items-center px-4 md:px-12">
+                    <div class="max-w-3xl text-right">
+                        <div class="inline-block bg-[#7B5AF3] text-white text-[10px] font-black px-3 py-1 rounded-full mb-6 uppercase tracking-widest shadow-lg">הבחירה של היום</div>
+                        <h2 id="hero-title" class="text-5xl md:text-8xl font-black mb-6 leading-tight drop-shadow-2xl"></h2>
+                        <p id="hero-desc" class="text-lg md:text-xl text-gray-300 line-clamp-3 mb-10 max-w-2xl leading-relaxed"></p>
+                        <button id="hero-btn" class="bg-white text-black px-10 py-5 rounded-3xl font-black text-xl hover:scale-105 transition-transform shadow-3xl flex items-center gap-3">
+                            <svg class="w-6 h-6 fill-black" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            לפרטים וצפייה
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="max-w-[1600px] mx-auto px-4 md:px-8 -mt-16 relative z-10 mb-20">
+                <div class="max-w-4xl mx-auto">
+                    <form onsubmit="app.handleSearch(event)" class="relative flex items-center bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[40px] overflow-hidden focus-within:border-[#7B5AF3]/50 transition-all shadow-3xl">
+                        <div class="pr-8 text-gray-400">
+                            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </div>
+                        <input type="text" id="search-input" placeholder="חפשו סרט, סדרה או שחקן..." class="flex-1 bg-transparent text-white p-7 text-2xl outline-none text-right" dir="rtl" autocomplete="off" />
+                        <button type="submit" class="bg-[#7B5AF3] text-white px-12 py-5 m-3 rounded-[30px] font-black text-lg hover:bg-[#6a4ce0] transition-colors shadow-xl">חפש</button>
+                    </form>
+                </div>
+
+                <div class="mt-24">
+                    <h3 id="list-title" class="text-3xl md:text-5xl font-black mb-12 flex items-center gap-6">
+                        <span class="w-2 h-12 bg-[#7B5AF3] rounded-full"></span>
+                        מה חם עכשיו?
+                    </h3>
+                    <div id="movie-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8"></div>
+                </div>
+            </main>
+        </section>
+
+        <section id="details-view" class="hidden min-h-screen bg-[#141414] animate-fadeIn pb-20">
+            <div class="relative h-[70vh] w-full overflow-hidden">
+                <img id="detail-backdrop" src="" class="w-full h-full object-cover opacity-50 detail-backdrop-mask" />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/20 to-transparent"></div>
+                <button onclick="app.navigateHome(event)" class="absolute top-24 right-6 md:right-12 z-50 flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-2xl hover:bg-white/20 transition-all text-white font-bold group">
+                    <svg class="w-5 h-5 rotate-180 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
+                    חזרה לחיפוש
+                </button>
+                <div class="absolute bottom-0 w-full px-6 md:px-16 pb-16">
+                    <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-12 items-end">
+                        <div class="hidden md:block w-80 shrink-0 animate-scaleUp">
+                            <img id="detail-poster" src="" class="w-full rounded-[40px] shadow-3xl border border-white/5 transform rotate-2" />
+                        </div>
+                        <div class="flex-1 text-right animate-slideUp">
+                            <div class="flex items-center gap-4 mb-6 flex-row-reverse justify-end font-black">
+                                <span id="detail-rating" class="text-green-500 bg-green-500/10 px-4 py-1.5 rounded-full border border-green-500/20 text-lg"></span>
+                                <span id="detail-year" class="text-gray-400"></span>
+                                <span class="bg-[#7B5AF3] text-white px-3 py-1 rounded text-[10px] uppercase tracking-widest">Premium 4K</span>
+                            </div>
+                            <h2 id="detail-title" class="text-5xl md:text-8xl font-black mb-10 drop-shadow-2xl leading-tight"></h2>
+                            <div id="detail-links" class="flex gap-4 justify-end"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-[1400px] mx-auto px-6 md:px-16 mt-20">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
+                    <div class="lg:col-span-2 text-right">
+                        <h4 class="text-2xl font-black mb-8 flex items-center justify-end gap-3 text-gray-400">
+                            תקציר הסרט
+                            <span class="w-1.5 h-8 bg-[#7B5AF3] rounded-full"></span>
+                        </h4>
+                        <p id="detail-desc" class="text-xl md:text-2xl leading-relaxed text-gray-200 font-light"></p>
+                    </div>
+                    <div class="space-y-12 text-right">
+                        <div>
+                            <h4 class="text-gray-500 font-black mb-6 uppercase tracking-wider text-sm">ז'אנרים</h4>
+                            <div id="detail-genres" class="flex flex-wrap gap-3 justify-end"></div>
+                        </div>
+                        <div>
+                            <h4 class="text-gray-500 font-black mb-6 uppercase tracking-wider text-sm">שחקנים מובילים</h4>
+                            <div id="detail-cast" class="space-y-5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="py-20 border-t border-white/5 text-center text-gray-600">
+        <p class="mb-8 font-bold">סטרימיו ישראל &copy; 2024 - כל הזכויות שמורות</p>
+        <div class="flex justify-center gap-8 opacity-20 grayscale">
+            <img src="https://www.stremio.com/website/stremio-logo-small.png" class="h-8" />
+            <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" class="h-6" />
+        </div>
+    </footer>
+
+    <script>
+        const API_KEY = "93f0d2ee2e3e60d061d14d91cbb47b46";
+        const BASE_URL = "https://api.themoviedb.org/3";
+        const IMG_URL = "https://image.tmdb.org/t/p/w500";
+        const BG_URL = "https://image.tmdb.org/t/p/original";
+
+        const app = {
+            init: function() {
+                this.loadTrending();
+                this.handleRouting();
+                window.addEventListener('popstate', () => this.handleRouting());
+                window.addEventListener('scroll', () => {
+                    const nav = document.getElementById('navbar');
+                    if (window.scrollY > 50) nav.classList.add('bg-black/95', 'shadow-2xl', 'backdrop-blur-2xl');
+                    else nav.classList.remove('bg-black/95', 'shadow-2xl', 'backdrop-blur-2xl');
+                });
+            },
+            handleRouting: function() {
+                const hash = window.location.hash;
+                if (hash.startsWith('#/view/')) {
+                    const [_, __, type, id] = hash.split('/');
+                    this.renderDetailsPage(id, type);
+                } else {
+                    this.showHomePage();
+                }
+            },
+            showHomePage: function() {
+                document.getElementById('home-view').classList.replace('hidden', 'block');
+                document.getElementById('details-view').classList.replace('block', 'hidden');
+                document.title = "סטרימיו ישראל - המלצות וצפייה";
+                window.scrollTo(0, 0);
+            },
+            navigateHome: function(e) {
+                if(e) e.preventDefault();
+                window.location.hash = '';
+            },
+            loadTrending: async function() {
+                try {
+                    const res = await fetch(`${BASE_URL}/trending/all/week?api_key=${API_KEY}&language=he-IL`);
+                    const data = await res.json();
+                    if(data.results && data.results.length > 0) {
+                        this.renderHero(data.results[0]);
+                        this.renderGrid(data.results);
+                    }
+                } catch (e) { console.error(e); }
+            },
+            renderHero: function(item) {
+                const hero = document.getElementById('hero');
+                hero.classList.remove('hidden');
+                const bg = document.getElementById('hero-bg');
+                bg.src = BG_URL + item.backdrop_path;
+                bg.onload = () => bg.style.opacity = '0.7';
+                document.getElementById('hero-title').innerText = item.title || item.name;
+                document.getElementById('hero-desc').innerText = item.overview;
+                document.getElementById('hero-btn').onclick = () => {
+                    window.location.hash = `#/view/${item.title ? 'movie' : 'tv'}/${item.id}`;
+                };
+            },
+            renderGrid: function(items) {
+                const grid = document.getElementById('movie-grid');
+                grid.innerHTML = items.filter(i => i.poster_path).map((item, i) => `
+                    <div class="movie-card group relative rounded-[32px] overflow-hidden cursor-pointer animate-slideUp" 
+                         style="animation-delay: ${i*50}ms" 
+                         onclick="window.location.hash = '#/view/${item.title ? 'movie' : 'tv'}/${item.id}'">
+                        <div class="aspect-[2/3] relative">
+                            <img src="${IMG_URL + item.poster_path}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" loading="lazy" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6 text-right">
+                                <h4 class="text-white font-black text-lg leading-tight w-full">${item.title || item.name}</h4>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            },
+            renderDetailsPage: async function(id, type) {
+                document.getElementById('home-view').classList.replace('block', 'hidden');
+                document.getElementById('details-view').classList.replace('hidden', 'block');
+                window.scrollTo(0, 0);
+                try {
+                    const res = await fetch(`${BASE_URL}/${type}/${id}?api_key=${API_KEY}&language=he-IL&append_to_response=credits`);
+                    const item = await res.json();
+                    document.title = `${item.title || item.name} - סטרימיו ישראל`;
+                    document.getElementById('detail-backdrop').src = BG_URL + item.backdrop_path;
+                    document.getElementById('detail-poster').src = IMG_URL + item.poster_path;
+                    document.getElementById('detail-title').innerText = item.title || item.name;
+                    document.getElementById('detail-desc').innerText = item.overview || "אין תקציר זמין בעברית.";
+                    document.getElementById('detail-rating').innerText = `${Math.round(item.vote_average * 10)}% התאמה`;
+                    document.getElementById('detail-year').innerText = (item.release_date || item.first_air_date || '').split('-')[0];
+                    document.getElementById('detail-genres').innerHTML = item.genres.map(g => `<span class="bg-white/5 border border-white/10 px-5 py-2 rounded-2xl text-sm font-bold">${g.name}</span>`).join('');
+                    document.getElementById('detail-cast').innerHTML = item.credits.cast.slice(0, 5).map(c => `
+                        <div class="flex items-center gap-5 flex-row-reverse">
+                            <img src="${c.profile_path ? IMG_URL+c.profile_path : 'https://via.placeholder.com/150'}" class="w-14 h-14 rounded-full object-cover border-2 border-[#7B5AF3]/20" />
+                            <div><p class="font-black text-base">${c.name}</p><p class="text-xs text-gray-500 font-bold">${c.character}</p></div>
+                        </div>`).join('');
+                    const stremioType = type === 'movie' ? 'movie' : 'series';
+                    document.getElementById('detail-links').innerHTML = `<a href="stremio:///detail/${stremioType}/tmdb:${item.id}" class="bg-[#7B5AF3] text-white px-14 py-5 rounded-[30px] font-black text-2xl hover:bg-[#6a4ce0] transition-all shadow-3xl animate-ripple">צפייה ב-Stremio</a>`;
+                } catch (e) { console.error(e); }
+            },
+            handleSearch: async function(e) {
+                e.preventDefault();
+                const q = document.getElementById('search-input').value.trim();
+                if (!q) return;
+                document.getElementById('hero').classList.add('hidden');
+                document.getElementById('list-title').innerText = `חיפוש עבור: ${q}`;
+                try {
+                    const res = await fetch(`${BASE_URL}/search/multi?api_key=${API_KEY}&language=he-IL&query=${encodeURIComponent(q)}`);
+                    const data = await res.json();
+                    this.renderGrid(data.results.filter(i => i.poster_path));
+                    window.scrollTo({ top: document.getElementById('search-input').offsetTop - 100, behavior: 'smooth' });
+                } catch (e) { console.error(e); }
+            }
+        };
+        app.init();
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
